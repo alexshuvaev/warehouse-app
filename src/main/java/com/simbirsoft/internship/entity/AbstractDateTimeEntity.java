@@ -5,7 +5,7 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-public class AbstractDateTimeEntity extends AbstractBaseEntity {
+public abstract class AbstractDateTimeEntity extends AbstractBaseEntity {
     @Column(name = "date_time", unique = true, columnDefinition = "timestamp default now()")
     private LocalDateTime dateTime;
 
