@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="shuvaev">
+        <createSequence sequenceName="global_seq" startValue="1" dataType="int"/>
+
+        <!-- Category entity -->
+        <createTable tableName="category">
+            <column name="id" type="int" defaultValue="nextval('global_seq')">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="cat_name_unique"/>
+            </column>
+        </createTable>
+
+        <!-- Product entity -->
+        <createTable tableName="product">
+            <column name="id" type="int" defaultValue="nextval('global_seq')">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_product_category" references="category(id)" />
+            </column>
+        </createTable>
+        <!-- Indexes for searchable columns in application -->
+        <createIndex
+                     clustered="true"
+                     indexName="idx_name"
+                     tableName="product"
+                     unique="true">
+            <column name="name"/>
+        </createIndex>
+        <createIndex
+                clustered="true"
+                indexName="idx_description"
+                tableName="product">
+            <column name="description"/>
+        </createIndex>
+
+        <!-- Store entity -->
+        <createTable tableName="store">
+            <column name="id" type="int" defaultValue="nextval('global_seq')">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Purchase entity -->
+        <createTable tableName="purchase">
+            <column name="id" type="int" defaultValue="nextval('global_seq')">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="date_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_price" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="store_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_order_store" references="store(id)"/>
+            </column>
+        </createTable>
+
+        <!-- Writeoff entity -->
+        <createTable tableName="writeoff">
+            <column name="id" type="int" defaultValue="nextval('global_seq')">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="date_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_price" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="confirm" type="boolean" />
+        </createTable>
+        <createIndex
+                clustered="true"
+                indexName="idx_date_time"
+                tableName="writeoff"
+                unique="true">
+            <column name="date_time"/>
+        </createIndex>
+
+        <!-- WriteoffProduct entity -->
+        <createTable tableName="writeoff_product">
+            <column name="id" type="int" defaultValue="nextval('global_seq')">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="writeoff_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_writeoff_id" references="writeoff(id)"/>
+            </column>
+        </createTable>
+
+        <!--table for ManyToMany relation between Product and Purchase entities -->
+        <createTable tableName="purchase_product">
+            <column name="purchase_id" type="int">
+            </column>
+            <column name="product_id" type="int">
+            </column>
+        </createTable>
+
+<!--        &lt;!&ndash;table for ManyToMany relation between Product and Writeoff entities &ndash;&gt;
+        <createTable tableName="writeoff_product">
+            <column name="writeoff_id" type="int">
+            </column>
+            <column name="product_id" type="int">
+            </column>
+        </createTable>-->
+
+    </changeSet>
+</databaseChangeLog>
+
+
+
+

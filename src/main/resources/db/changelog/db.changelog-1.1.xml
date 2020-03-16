@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2" author="shuvaev">
+        <sql dbms="postgresql" endDelimiter="\nGO" splitStatements="true" stripComments="true">
+            INSERT INTO category (name)
+            VALUES
+            ('Ёлки'),
+            ('Елочные шары'),
+            ('Гирлянды');
+
+            INSERT INTO product (name, description, price, amount, category_id)
+            VALUES
+            ('Искусственная Ель 100см.', 'Искусственная новогодняя елка, которая состоит из удобной и красивой конструкции, прекрасно подойдет для украшения Вашего помещения в новогодней тематике.', 1000, 11 , 1),
+            ('Искусственная Ель 150см.', 'Искусственная ель Triumph Tree "Императрица", выполненная из мягкого ПВХ, станет прекрасным вариантом для оформления интерьера к Новому году.', 1500, 6, 1),
+            ('Искусственная Ель 220см.', 'Сказочно красивая новогодняя елка украсит интерьер вашего дома и создаст теплую и уютную атмосферу праздника.', 2200.50, 2, 1);
+
+            INSERT INTO store (name, address)
+            VALUES
+            ('Магазин на Гаражной', 'г. Москва, ул. Гаражная, 1'),
+            ('ЦУМ г. Москва', 'г. Москва, ЦУМ, ул. Петровка, 2'),
+            ('Филиал №1 г. Краснодар', 'г. Краснодар, Росстовское шоссе, 13');
+        </sql>
+
+    </changeSet>
+</databaseChangeLog>
