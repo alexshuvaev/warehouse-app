@@ -1,6 +1,7 @@
 package com.simbirsoft.internship.service;
 
 import com.simbirsoft.internship.entity.CategoryEntity;
+import com.simbirsoft.internship.to.category.CategoryWithId;
 
 import java.util.List;
 
@@ -21,6 +22,16 @@ public interface CategoryService {
     CategoryEntity findById(Integer id);
 
     /**
+     * Update exist Category.
+     *
+     * @param newCategoryEntity exist Category with new name.
+     * @return updated Category.
+     * If Category not found will be NotFoundException.
+     * If newCategoryEntity name not unique will be MustBeUniqueException.
+     */
+    CategoryEntity update(CategoryEntity newCategoryEntity);
+
+    /**
      * Creat new Category.
      *
      * @param categoryEntity new Category entity.
@@ -30,12 +41,12 @@ public interface CategoryService {
     CategoryEntity create(CategoryEntity categoryEntity);
 
     /**
-     * Delete category by id.
+     * Create several Categories (list of Categories).
      *
-     * @param id of Category which have to delete.
-     * If Category not found with this id in DB, than will be NotFoundException.
+     * @param categoriesNames list of Categories with new names.
+     * @return List of new categories. If categories names not unique will be MustBeUniqueException.
      */
-    void deleteById(int id);
+    List<CategoryWithId> createList(List<String> categoriesNames);
 
     /**
      * Get next id.

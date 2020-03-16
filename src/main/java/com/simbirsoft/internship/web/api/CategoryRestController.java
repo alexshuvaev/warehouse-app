@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.simbirsoft.internship.util.TosConverter.*;
@@ -31,7 +32,7 @@ public class CategoryRestController {
     @ApiOperation(value = "Find all Categories", notes = "Find all Categories from DB. Only Categories ids and names, without displaying Products")
     @GetMapping("/all")
     public List<CategoryWithId> getAll() {
-        List<CategoryEntity> categoryEntityList = service.findAll();
+        List<CategoryEntity> categoryEntityList =  service.findAll();
         return categoryWithIdListCreate(categoryEntityList);
     }
 
@@ -62,16 +63,29 @@ public class CategoryRestController {
     }
 
     /**
-     * Delete Category with Products.
+     * Create list of Categories.
      *
-     * @param id of Category, which will be deleted.
-     *           If Category by id not exist, will be NotFoundException.
-     *           Category deleting with all its Products.
+     * @param names Elements of array which will become Category entities and savedAll in the DB.
+     *              Only unique Elements will be saved.
+     * @return List of saved unique Categories.
      */
-    @ApiOperation(value = "Delete single Category", notes = "Provide an id of Category which must be deleted.")
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable int id) {
-        service.deleteById(id);
-        return "Category with id=" + id + " successfully deleted.";
+    @ApiOperation(value = "Create a list of Categories", notes = "Input an array of names to create are multiple categories.")
+    @PostMapping("/all")
+    public List<CategoryWithId> createList(@RequestBody String... names) {
+        return service.createList(Arrays.asList(names));
+    }
+
+    /**
+     * Update existing Category.
+     *
+     * @param category contains new name of Category.
+     * @param id of Category which will be updated if Category exist.
+     * @return updated Category. If Category with this id not exist, will be NotFoundException.
+     */
+    @ApiOperation(value = "Update name of single Category", notes = "Provide new name for Category. Only single Category can be updated in request.")
+    @PutMapping("/{id}")
+    public CategoryWithId update(@RequestBody Category category, @PathVariable Integer id) {
+        CategoryEntity categoryEntity = service.update(new CategoryEntity(id, category.getName()));
+        return categoryWithProductsCreate(categoryEntity);
     }
 }

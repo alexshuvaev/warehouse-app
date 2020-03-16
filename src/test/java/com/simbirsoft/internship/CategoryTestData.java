@@ -6,10 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.simbirsoft.internship.entity.AbstractBaseEntity.START_SEQ;
-
 public class CategoryTestData {
-
+    public static final int START_SEQ = 1;
     public static final CategoryEntity CAT_1 = new CategoryEntity(START_SEQ, "Ёлки");
     public static final CategoryEntity CAT_2 = new CategoryEntity(START_SEQ+1, "Елочные шары");
     public static final CategoryEntity CAT_3 = new CategoryEntity(START_SEQ+2, "Гирлянды");

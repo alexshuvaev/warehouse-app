@@ -2,13 +2,13 @@ package com.simbirsoft.internship.service;
 
 import com.simbirsoft.internship.entity.CategoryEntity;
 import com.simbirsoft.internship.repository.CategoryRepository;
-import com.simbirsoft.internship.util.exception.NotFoundException;
+import com.simbirsoft.internship.to.category.CategoryWithId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.simbirsoft.internship.util.ValidationUtil.checkNotFoundWithId;
 import static com.simbirsoft.internship.util.ValidationUtil.checkUniqueName;
@@ -35,18 +35,33 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Transactional
     @Override
+    public CategoryEntity update(CategoryEntity newCategoryEntity) {
+        String name = newCategoryEntity.getName();
+        Integer id = newCategoryEntity.getId();
+        boolean existByName = categoryRepository.existsByName(name);
+        CategoryEntity categoryEntity = findById(id);
+        categoryEntity.setName(name);
+        return categoryRepository.save(checkUniqueName(existByName, categoryEntity));
+    }
+
+    @Transactional
+    @Override
     public CategoryEntity create(CategoryEntity categoryEntity) {
         return categoryRepository.save(checkUniqueName(categoryRepository.existsByName(categoryEntity.getName()), categoryEntity));
     }
 
     @Transactional
     @Override
-    public void deleteById(int id) {
-        try {
-            categoryRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundException("Not found entity with id=" + id, null, true, false);
-        }
+    public List<CategoryWithId> createList(List<String> categoriesNames) {
+        List<CategoryEntity> categoryList = categoryRepository.saveAll(
+                categoriesNames.stream()
+                        .filter(e -> !categoryRepository.existsByName(e))
+                        .map(e -> new CategoryEntity(getNextId(), e))
+                        .collect(Collectors.toList()));
+
+        return categoryList.stream()
+                .map(e -> new CategoryWithId(e.getId(), e.getName(), e.getProducts().size()))
+                .collect(Collectors.toList());
     }
 
     @Transactional
