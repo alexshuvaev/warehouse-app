@@ -1,7 +1,6 @@
 package com.simbirsoft.internship.to;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.simbirsoft.internship.entity.WriteOffProductEntity;
 import com.simbirsoft.internship.to.product.ProductWithId;
 
 import java.time.LocalDateTime;

@@ -31,7 +31,7 @@ public class CategoryRestController {
     @ApiOperation(value = "Find all Categories", notes = "Find all Categories from DB. Only Categories ids and names, without displaying Products")
     @GetMapping("/all")
     public List<CategoryWithId> getAll() {
-        List<CategoryEntity> categoryEntityList =  service.findAll();
+        List<CategoryEntity> categoryEntityList = service.findAll();
         return categoryWithIdListCreate(categoryEntityList);
     }
 
