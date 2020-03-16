@@ -29,12 +29,4 @@ public class CategoryWithId extends Category {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public Integer getAmountOfProducts() {
-        return amountOfProducts;
-    }
-
-    public void setAmountOfProducts(Integer amountOfProducts) {
-        this.amountOfProducts = amountOfProducts;
-    }
 }

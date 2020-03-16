@@ -45,16 +45,8 @@ public class ProductEntity extends AbstractNamedEntity {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public double getPrice() {
         return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public int getAmount() {
@@ -71,14 +63,6 @@ public class ProductEntity extends AbstractNamedEntity {
 
     public void setCategory(CategoryEntity category) {
         this.category = category;
-    }
-
-    public Set<PurchaseEntity> getPurchases() {
-        return purchases;
-    }
-
-    public void setPurchases(Set<PurchaseEntity> purchaseEntities) {
-        this.purchases = purchaseEntities;
     }
 
     @Override

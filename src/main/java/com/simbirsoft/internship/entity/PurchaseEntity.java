@@ -30,27 +30,19 @@ public class PurchaseEntity extends AbstractDateTimeEntity {
         this.totalPrice = totalPrice;
     }
 
-    public StoreEntity getStore() {
-        return store;
-    }
-
-    public void setStore(StoreEntity storeEntity) {
-        this.store = storeEntity;
-    }
-
     public Set<ProductEntity> getProducts() {
         return products;
-    }
-
-    public void setProducts(Set<ProductEntity> productEntitySet) {
-        this.products = productEntitySet;
     }
 
     public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+    public StoreEntity getStore() {
+        return store;
+    }
+
+    public void setProducts(Set<ProductEntity> productEntitySet) {
+        this.products = productEntitySet;
     }
 }

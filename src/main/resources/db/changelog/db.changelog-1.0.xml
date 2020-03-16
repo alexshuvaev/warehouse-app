@@ -29,7 +29,7 @@
             <column name="description" type="text">
                 <constraints nullable="false"/>
             </column>
-            <column name="price" type="int">
+            <column name="price" type="decimal">
                 <constraints nullable="false"/>
             </column>
             <column name="amount" type="int">
@@ -75,7 +75,7 @@
             <column name="date_time" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="total_price" type="int">
+            <column name="total_price" type="decimal">
                 <constraints nullable="false"/>
             </column>
             <column name="store_id" type="int">
@@ -91,7 +91,7 @@
             <column name="date_time" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="total_price" type="int">
+            <column name="total_price" type="decimal">
                 <constraints nullable="false"/>
             </column>
             <column name="confirm" type="boolean" />
@@ -118,7 +118,7 @@
             <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="price" type="int">
+            <column name="price" type="decimal">
                 <constraints nullable="false"/>
             </column>
             <column name="amount" type="int">
@@ -136,14 +136,6 @@
             <column name="product_id" type="int">
             </column>
         </createTable>
-
-<!--        &lt;!&ndash;table for ManyToMany relation between Product and Writeoff entities &ndash;&gt;
-        <createTable tableName="writeoff_product">
-            <column name="writeoff_id" type="int">
-            </column>
-            <column name="product_id" type="int">
-            </column>
-        </createTable>-->
 
     </changeSet>
 </databaseChangeLog>

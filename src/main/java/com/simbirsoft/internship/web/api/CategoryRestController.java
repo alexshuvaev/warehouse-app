@@ -44,7 +44,7 @@ public class CategoryRestController {
      */
     @ApiOperation(value = "Find Category by id", notes = "Provide an id to get single Category from DB")
     @GetMapping("/{id}")
-    public CategoryWithProducts get(@PathVariable Integer id) {
+    public CategoryWithProducts get(@PathVariable int id) {
         CategoryEntity category = service.findById(id);
         return categoryWithProductsCreate(category);
     }
@@ -84,7 +84,7 @@ public class CategoryRestController {
      */
     @ApiOperation(value = "Update name of single Category", notes = "Provide new name for Category. Only single Category can be updated in request.")
     @PutMapping("/{id}")
-    public CategoryWithId update(@RequestBody Category category, @PathVariable Integer id) {
+    public CategoryWithId update(@RequestBody Category category, @PathVariable int id) {
         CategoryEntity categoryEntity = service.update(new CategoryEntity(id, category.getName()));
         return categoryWithProductsCreate(categoryEntity);
     }

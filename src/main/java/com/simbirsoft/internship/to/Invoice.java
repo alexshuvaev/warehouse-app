@@ -12,11 +12,6 @@ public class Invoice {
 
     public Invoice() {
     }
-
-    public Invoice(List<Product> products) {
-        this.products = products;
-    }
-
     public List<Product> getProducts() {
         return products;
     }

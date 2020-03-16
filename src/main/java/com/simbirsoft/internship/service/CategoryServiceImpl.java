@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryEntity findById(Integer id) {
+    public CategoryEntity findById(int id) {
         return checkNotFoundWithId(categoryRepository.findById(id).orElse(null), id);
     }
 
@@ -37,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryEntity update(CategoryEntity newCategoryEntity) {
         String name = newCategoryEntity.getName();
-        Integer id = newCategoryEntity.getId();
+        int id = newCategoryEntity.getId();
         boolean existByName = categoryRepository.existsByName(name);
         CategoryEntity categoryEntity = findById(id);
         categoryEntity.setName(name);
@@ -66,7 +66,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Transactional
     @Override
-    public Integer getNextId() {
+    public int getNextId() {
         return categoryRepository.genNextId();
     }
 }

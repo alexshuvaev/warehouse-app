@@ -30,7 +30,7 @@ public class ProductRestController {
      */
     @ApiOperation(value = "Find Product by id", notes = "Provide an id to get single Product from DB")
     @GetMapping("/{id}")
-    public ProductWithId get(@PathVariable Integer id) {
+    public ProductWithId get(@PathVariable int id) {
         return (ProductWithId) productCreate(service.findById(id));
     }
 

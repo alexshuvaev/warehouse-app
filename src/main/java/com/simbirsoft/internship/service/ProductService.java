@@ -13,7 +13,7 @@ public interface ProductService {
      * @param id of Product.
      * @return Product if not null, otherwise will be NotFoundException.
      */
-    ProductEntity findById(Integer id);
+    ProductEntity findById(int id);
 
     /**
      * Get Products list from DB by set of ids.

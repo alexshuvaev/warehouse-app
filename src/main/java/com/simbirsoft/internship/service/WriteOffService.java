@@ -20,7 +20,7 @@ public interface WriteOffService {
      * @return single Write-off list.
      * If Write-off not found by id, will be NotFoundException.
      */
-    WriteOffEntity findById(Integer id);
+    WriteOffEntity findById(int id);
 
     /**
      * Create list of Products to write-off.

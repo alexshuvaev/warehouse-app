@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Position {
     @JsonProperty("id")
-    private Integer idOfProduct;
+    private int idOfProduct;
 
     @JsonProperty("amount")
-    private Integer amountOfProduct;
+    private int amountOfProduct;
 
     public Position() {
     }
@@ -21,15 +21,7 @@ public class Position {
         return idOfProduct;
     }
 
-    public void setIdOfProduct(Integer idOfProduct) {
-        this.idOfProduct = idOfProduct;
-    }
-
-    public Integer getAmountOfProduct() {
+    public int getAmountOfProduct() {
         return amountOfProduct;
-    }
-
-    public void setAmountOfProduct(Integer amountOfProduct) {
-        this.amountOfProduct = amountOfProduct;
     }
 }

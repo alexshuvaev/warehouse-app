@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Purchase {
     @JsonProperty("store_id")
-    private Integer storeId;
+    private int storeId;
 
     @JsonProperty("products_for_purchase")
     private Set<Position> positions = new HashSet<>();
@@ -22,15 +22,7 @@ public class Purchase {
         return positions;
     }
 
-    public void setPositions(Set<Position> positions) {
-        this.positions = positions;
-    }
-
-    public Integer getStoreId() {
+    public int getStoreId() {
         return storeId;
-    }
-
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
     }
 }

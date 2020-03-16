@@ -19,7 +19,7 @@ public class StoreEntity extends AbstractNamedEntity {
     public StoreEntity() {
     }
 
-  public StoreEntity(Integer id, String name, String address, Set<PurchaseEntity> purchases) {
+    public StoreEntity(Integer id, String name, String address, Set<PurchaseEntity> purchases) {
         super(id, name);
         this.address = address;
         this.purchases = purchases;
@@ -29,16 +29,8 @@ public class StoreEntity extends AbstractNamedEntity {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-   public Set<PurchaseEntity> getPurchases() {
+    public Set<PurchaseEntity> getPurchases() {
         return purchases;
-    }
-
-    public void setPurchases(Set<PurchaseEntity> orderSet) {
-        this.purchases = orderSet;
     }
 }
 

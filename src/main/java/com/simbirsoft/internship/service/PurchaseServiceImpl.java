@@ -52,8 +52,8 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchase.getPositions()
                 .forEach(position -> {
                     // find productEntity by id, or null if not exist
-                    Integer productid = position.getIdOfProduct();
-                    ProductEntity productEntity = checkNotFoundWithId(productRepository.findById(productid).orElse(null), productid);
+                    int productId = position.getIdOfProduct();
+                    ProductEntity productEntity = checkNotFoundWithId(productRepository.findById(productId).orElse(null), productId);
                     if (productEntity != null) {
                         int amountOfProduct = productEntity.getAmount();
                         int amountOfPurchasingProduct = position.getAmountOfProduct();

@@ -19,7 +19,7 @@ public interface CategoryService {
      * @param id of Category.
      * @return Category entity if not null. If Category=null will be NotFoundException.
      */
-    CategoryEntity findById(Integer id);
+    CategoryEntity findById(int id);
 
     /**
      * Update exist Category.
@@ -53,5 +53,5 @@ public interface CategoryService {
      *
      * @return next id from global sequences.
      */
-    Integer getNextId();
+    int getNextId();
 }

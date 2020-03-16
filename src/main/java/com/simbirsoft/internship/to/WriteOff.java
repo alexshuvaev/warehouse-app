@@ -12,15 +12,7 @@ public class WriteOff {
     public WriteOff() {
     }
 
-    public WriteOff(Set<Position> positionsForWriteoff) {
-        this.positionsForWriteoff = positionsForWriteoff;
-    }
-
     public Set<Position> getPositionsForWriteoff() {
         return positionsForWriteoff;
-    }
-
-    public void setPositionsForWriteoff(Set<Position> positionsForWriteoff) {
-        this.positionsForWriteoff = positionsForWriteoff;
     }
 }

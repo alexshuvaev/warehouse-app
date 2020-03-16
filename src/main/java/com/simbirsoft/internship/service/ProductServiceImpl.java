@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductEntity findById(Integer id) {
+    public ProductEntity findById(int id) {
         return checkNotFoundWithId(productRepository.findById(id).orElse(null), id);
     }
 

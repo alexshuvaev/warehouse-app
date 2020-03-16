@@ -47,7 +47,7 @@ public class WriteOffServiceImpl implements WriteOffService {
     }
 
     @Override
-    public WriteOffEntity findById(Integer id) {
+    public WriteOffEntity findById(int id) {
         return checkNotFoundWithId(writeOffRepository.findById(id).orElse(null), id);
     }
 

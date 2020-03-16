@@ -41,7 +41,7 @@ public class WriteOffRestController {
      */
     @ApiOperation(value = "Get single Write-off list", notes = "Provide an id to get single Write-off list")
     @GetMapping("/{id}")
-    public WriteOffToConfirm get(@PathVariable Integer id) {
+    public WriteOffToConfirm get(@PathVariable int id) {
         WriteOffEntity writeOff = service.findById(id);
         return TosConverter.writeOffToConfirmCreate(writeOff);
     }
@@ -68,7 +68,7 @@ public class WriteOffRestController {
      */
     @ApiOperation(value = "Confirm for write-off", notes = "Provide an id of write-off list, and a code word to confirm write-off")
     @PostMapping("/{id}/confirm")
-    public String confirm(@PathVariable Integer id, @RequestBody String confirm) {
+    public String confirm(@PathVariable int id, @RequestBody String confirm) {
         return service.confirm(id, confirm);
     }
 

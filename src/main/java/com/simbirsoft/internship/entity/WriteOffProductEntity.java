@@ -45,36 +45,16 @@ public class WriteOffProductEntity extends AbstractNamedEntity {
         this.amount = amount;
     }
 
-    public WriteOffEntity getWriteOff() {
-        return writeOff;
-    }
-
-    public void setWriteOff(WriteOffEntity writeOff) {
-        this.writeOff = writeOff;
-    }
-
     public int getProductId() {
         return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
     }
 
     public double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public int getCategoryId() {
         return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
     }
 
     @Override
