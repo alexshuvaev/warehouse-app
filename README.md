@@ -1,6 +1,6 @@
 # SimbirSoft internship
 
-Storage application on Spring Boot, Spring DATA JPA, Hibernate, Swagger REST
+"Storage" application on Spring Boot, Spring DATA JPA, Hibernate, Swagger REST
 
 ## Requirements
 
