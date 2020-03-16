@@ -1,4 +1,4 @@
-# SimbirSoft intership
+# SimbirSoft internship
 
 Storage application on Spring Boot, Spring DATA JPA, Hibernate, Swagger REST
 
