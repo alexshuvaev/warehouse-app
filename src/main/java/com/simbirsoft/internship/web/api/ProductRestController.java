@@ -6,6 +6,7 @@ import com.simbirsoft.internship.to.product.Product;
 import com.simbirsoft.internship.to.product.ProductWithId;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class ProductRestController {
      * @return Product entity, if not null. If Product=null will be NotFoundException.
      */
     @ApiOperation(value = "Find Product by id", notes = "Provide an id to get single Product from DB")
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public ProductWithId get(@PathVariable int id) {
         return (ProductWithId) productCreate(service.findById(id));
@@ -41,6 +43,7 @@ public class ProductRestController {
      * @return List of saved Products.
      */
     @ApiOperation(value = "Create list of Products", notes = "Add Products from Invoice")
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     public List<Product> createList(@RequestBody Invoice invoice) {
         return productsListCreate(service.createList(invoice.getProducts()));

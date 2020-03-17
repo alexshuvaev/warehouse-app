@@ -2,21 +2,18 @@ package com.simbirsoft.internship.service;
 
 import com.simbirsoft.internship.entity.CategoryEntity;
 import com.simbirsoft.internship.repository.CategoryRepository;
-import com.simbirsoft.internship.to.category.CategoryWithId;
+import com.simbirsoft.internship.util.exception.MustBeUniqueException;
+import com.simbirsoft.internship.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.simbirsoft.internship.util.ValidationUtil.checkNotFoundWithId;
-import static com.simbirsoft.internship.util.ValidationUtil.checkUniqueName;
 
 @Service
 @Transactional(readOnly = true)
 public class CategoryServiceImpl implements CategoryService {
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     @Autowired
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
@@ -30,43 +27,37 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryEntity findById(int id) {
-        return checkNotFoundWithId(categoryRepository.findById(id).orElse(null), id);
+        return categoryRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Not found Category with id=" + id));
     }
 
     @Transactional
     @Override
-    public CategoryEntity update(CategoryEntity newCategoryEntity) {
-        String name = newCategoryEntity.getName();
-        int id = newCategoryEntity.getId();
-        boolean existByName = categoryRepository.existsByName(name);
-        CategoryEntity categoryEntity = findById(id);
-        categoryEntity.setName(name);
-        return categoryRepository.save(checkUniqueName(existByName, categoryEntity));
+    public CategoryEntity update(CategoryEntity newCategory) {
+        String name = checkUniqueName(newCategory.getName());
+        int id = newCategory.getId();
+        CategoryEntity category = findById(id);
+        category.setName(name);
+        return categoryRepository.save(category);
     }
 
     @Transactional
     @Override
-    public CategoryEntity create(CategoryEntity categoryEntity) {
-        return categoryRepository.save(checkUniqueName(categoryRepository.existsByName(categoryEntity.getName()), categoryEntity));
-    }
-
-    @Transactional
-    @Override
-    public List<CategoryWithId> createList(List<String> categoriesNames) {
-        List<CategoryEntity> categoryList = categoryRepository.saveAll(
-                categoriesNames.stream()
-                        .filter(e -> !categoryRepository.existsByName(e))
-                        .map(e -> new CategoryEntity(getNextId(), e))
-                        .collect(Collectors.toList()));
-
-        return categoryList.stream()
-                .map(e -> new CategoryWithId(e.getId(), e.getName(), e.getProducts().size()))
-                .collect(Collectors.toList());
+    public CategoryEntity create(CategoryEntity newCategory) {
+        checkUniqueName(newCategory.getName());
+        return categoryRepository.save(newCategory);
     }
 
     @Transactional
     @Override
     public int getNextId() {
         return categoryRepository.genNextId();
+    }
+
+    private String checkUniqueName(String name){
+        if (categoryRepository.existsByName(name)) {
+            throw new MustBeUniqueException("Entity with name: " + name + " already exist (name must be unique)");
+        }
+        return name;
     }
 }

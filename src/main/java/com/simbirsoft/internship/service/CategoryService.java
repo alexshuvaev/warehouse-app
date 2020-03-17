@@ -1,7 +1,6 @@
 package com.simbirsoft.internship.service;
 
 import com.simbirsoft.internship.entity.CategoryEntity;
-import com.simbirsoft.internship.to.category.CategoryWithId;
 
 import java.util.List;
 
@@ -39,14 +38,6 @@ public interface CategoryService {
      * If CategoryEntity name not unique will be MustBeUniqueException.
      */
     CategoryEntity create(CategoryEntity categoryEntity);
-
-    /**
-     * Create several Categories (list of Categories).
-     *
-     * @param categoriesNames list of Categories with new names.
-     * @return List of new categories. If categories names not unique will be MustBeUniqueException.
-     */
-    List<CategoryWithId> createList(List<String> categoriesNames);
 
     /**
      * Get next id.

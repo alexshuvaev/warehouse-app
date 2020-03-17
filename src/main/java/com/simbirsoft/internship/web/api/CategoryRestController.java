@@ -7,9 +7,9 @@ import com.simbirsoft.internship.to.category.CategoryWithId;
 import com.simbirsoft.internship.to.category.CategoryWithProducts;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static com.simbirsoft.internship.util.TosConverter.*;
@@ -30,7 +30,8 @@ public class CategoryRestController {
      * @return list of Categories without showing products (only amount of products in each Category).
      */
     @ApiOperation(value = "Find all Categories", notes = "Find all Categories from DB. Only Categories ids and names, without displaying Products")
-    @GetMapping("/all")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/all")
     public List<CategoryWithId> getAll() {
         List<CategoryEntity> categoryEntityList =  service.findAll();
         return categoryWithIdListCreate(categoryEntityList);
@@ -43,6 +44,7 @@ public class CategoryRestController {
      * @return Category entity with Product entities, if Category not null. If Category=null will be NotFoundException.
      */
     @ApiOperation(value = "Find Category by id", notes = "Provide an id to get single Category from DB")
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public CategoryWithProducts get(@PathVariable int id) {
         CategoryEntity category = service.findById(id);
@@ -56,23 +58,11 @@ public class CategoryRestController {
      * @return Category entity. if Category name not unique will return MustBeUniqueException.
      */
     @ApiOperation(value = "Create single Category", notes = "Provide new name for Category. Only single Category can be create in request.")
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     public CategoryWithId create(@RequestBody Category category) {
         CategoryEntity categoryEntity = service.create(new CategoryEntity(null, category.getName()));
         return categoryWithIdCreate(categoryEntity);
-    }
-
-    /**
-     * Create list of Categories.
-     *
-     * @param names Elements of array which will become Category entities and savedAll in the DB.
-     *              Only unique Elements will be saved.
-     * @return List of saved unique Categories.
-     */
-    @ApiOperation(value = "Create a list of Categories", notes = "Input an array of names to create are multiple categories.")
-    @PostMapping("/all")
-    public List<CategoryWithId> createList(@RequestBody String... names) {
-        return service.createList(Arrays.asList(names));
     }
 
     /**
@@ -83,6 +73,7 @@ public class CategoryRestController {
      * @return updated Category. If Category with this id not exist, will be NotFoundException.
      */
     @ApiOperation(value = "Update name of single Category", notes = "Provide new name for Category. Only single Category can be updated in request.")
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
     public CategoryWithId update(@RequestBody Category category, @PathVariable int id) {
         CategoryEntity categoryEntity = service.update(new CategoryEntity(id, category.getName()));
