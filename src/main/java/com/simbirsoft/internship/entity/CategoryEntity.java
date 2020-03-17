@@ -26,4 +26,9 @@ public class CategoryEntity extends AbstractNamedEntity{
     public void setProducts(Set<ProductEntity> productEntitySet) {
         this.products = productEntitySet;
     }
+
+    @Override
+    public String toString() {
+        return getId() + " " + getName();
+    }
 }
