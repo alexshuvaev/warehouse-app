@@ -45,13 +45,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryEntity create(CategoryEntity newCategory) {
         checkUniqueName(newCategory.getName());
+        System.out.println(newCategory);
         return categoryRepository.save(newCategory);
-    }
-
-    @Transactional
-    @Override
-    public int getNextId() {
-        return categoryRepository.genNextId();
     }
 
     private String checkUniqueName(String name){

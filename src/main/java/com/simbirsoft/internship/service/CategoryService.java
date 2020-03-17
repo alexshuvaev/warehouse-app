@@ -38,11 +38,4 @@ public interface CategoryService {
      * If CategoryEntity name not unique will be MustBeUniqueException.
      */
     CategoryEntity create(CategoryEntity categoryEntity);
-
-    /**
-     * Get next id.
-     *
-     * @return next id from global sequences.
-     */
-    int getNextId();
 }

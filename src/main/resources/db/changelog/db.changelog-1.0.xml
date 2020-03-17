@@ -6,11 +6,10 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="1" author="shuvaev">
-        <createSequence sequenceName="global_seq" startValue="1" dataType="int"/>
 
         <!-- Category entity -->
         <createTable tableName="category">
-            <column name="id" type="int" defaultValue="nextval('global_seq')">
+            <column name="id" type="integer" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)">
@@ -20,7 +19,7 @@
 
         <!-- Product entity -->
         <createTable tableName="product">
-            <column name="id" type="int" defaultValue="nextval('global_seq')">
+            <column name="id" type="integer" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)">
@@ -56,7 +55,7 @@
 
         <!-- Store entity -->
         <createTable tableName="store">
-            <column name="id" type="int" defaultValue="nextval('global_seq')">
+            <column name="id" type="integer" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)">
@@ -69,8 +68,8 @@
 
         <!-- Purchase entity -->
         <createTable tableName="purchase">
-            <column name="id" type="int" defaultValue="nextval('global_seq')">
-                <constraints primaryKey="true" nullable="false" />
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="date_time" type="timestamp">
                 <constraints nullable="false"/>
@@ -85,8 +84,8 @@
 
         <!-- Writeoff entity -->
         <createTable tableName="writeoff">
-            <column name="id" type="int" defaultValue="nextval('global_seq')">
-                <constraints primaryKey="true" nullable="false" />
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="date_time" type="timestamp">
                 <constraints nullable="false"/>
@@ -106,7 +105,7 @@
 
         <!-- WriteoffProduct entity -->
         <createTable tableName="writeoff_product">
-            <column name="id" type="int" defaultValue="nextval('global_seq')">
+            <column name="id" type="integer" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="product_id" type="int">

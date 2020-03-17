@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepository extends JpaRepository<ProductEntity, Integer>, GlobalSequence {
+public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
     /**
      * Validation by name. Product name must be unique.
      *
