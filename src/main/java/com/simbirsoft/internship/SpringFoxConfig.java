@@ -40,7 +40,7 @@ public class SpringFoxConfig {
                 "Storage API",
                 "API for SimbirSoft intership project",
                 "1.0",
-                "Free to use",
+                "Free dto use",
                 new springfox.documentation.service.Contact("Alexandr Shuvaev", "", "alexshuvaevdev@gmail.com"),
                 "",
                 ""

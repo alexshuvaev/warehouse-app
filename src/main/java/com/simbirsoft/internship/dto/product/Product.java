@@ -1,4 +1,4 @@
-package com.simbirsoft.internship.to.product;
+package com.simbirsoft.internship.dto.product;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -64,6 +64,14 @@ public class Product {
 
     @Override
     public String toString() {
-        return name;
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", amount=" + amount +
+                ", categoryId=" + categoryId +
+                '}';
     }
+
+
 }

@@ -1,7 +1,7 @@
-package com.simbirsoft.internship.to;
+package com.simbirsoft.internship.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.simbirsoft.internship.to.product.ProductWithId;
+import com.simbirsoft.internship.dto.product.ProductWithId;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package com.simbirsoft.internship.service;
 
-import com.simbirsoft.internship.to.Purchase;
-import com.simbirsoft.internship.to.product.ProductWithId;
+import com.simbirsoft.internship.dto.Purchase;
+import com.simbirsoft.internship.dto.product.ProductWithId;
 
 import java.util.List;
 

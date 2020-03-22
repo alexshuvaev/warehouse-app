@@ -4,6 +4,8 @@ import com.simbirsoft.internship.entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
     /**
@@ -13,4 +15,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
      * @return true if Product with this name exist, or false if not.
      */
     boolean existsByName(String name);
+
+    Optional<ProductEntity> findByName(String name);
 }

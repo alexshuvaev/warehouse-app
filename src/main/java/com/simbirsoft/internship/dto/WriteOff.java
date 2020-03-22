@@ -1,4 +1,4 @@
-package com.simbirsoft.internship.to;
+package com.simbirsoft.internship.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

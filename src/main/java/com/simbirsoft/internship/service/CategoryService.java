@@ -26,7 +26,7 @@ public interface CategoryService {
      * @param newCategoryEntity exist Category with new name.
      * @return updated Category.
      * If Category not found will be NotFoundException.
-     * If newCategoryEntity name not unique will be MustBeUniqueException.
+     * If newCategoryEntity name not unique will be InvalidPropertyException.
      */
     CategoryEntity update(CategoryEntity newCategoryEntity);
 
@@ -35,7 +35,7 @@ public interface CategoryService {
      *
      * @param categoryEntity new Category entity.
      * @return new created Category.
-     * If CategoryEntity name not unique will be MustBeUniqueException.
+     * If CategoryEntity name not unique will be InvalidPropertyException.
      */
     CategoryEntity create(CategoryEntity categoryEntity);
 }

@@ -6,8 +6,10 @@ import com.simbirsoft.internship.entity.StoreEntity;
 import com.simbirsoft.internship.repository.ProductRepository;
 import com.simbirsoft.internship.repository.PurchaseRepository;
 import com.simbirsoft.internship.repository.StoreRepository;
-import com.simbirsoft.internship.to.Purchase;
-import com.simbirsoft.internship.to.product.ProductWithId;
+import com.simbirsoft.internship.dto.Position;
+import com.simbirsoft.internship.dto.Purchase;
+import com.simbirsoft.internship.dto.product.ProductWithId;
+import com.simbirsoft.internship.util.exception.InvalidPropertyException;
 import com.simbirsoft.internship.util.exception.LowerThanAvaibleException;
 import com.simbirsoft.internship.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.simbirsoft.internship.util.TosConverter.productWithIdCreate;
+import static com.simbirsoft.internship.util.DTOsConverter.productWithIdCreate;
 
 @Service
 @Transactional(readOnly = true)
@@ -36,8 +38,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Transactional
     @Override
     public List<ProductWithId> makeAnPurchase(Purchase purchase) {
-        // get Store where is purchase made
-        StoreEntity store = storeRepository.getOne(purchase.getStoreId());
+        purchaseValidation(purchase);
+        StoreEntity store = storeRepository.findById(purchase.getStoreId()).orElseThrow(
+                () -> new NotFoundException("Not found Store with id=" + purchase.getStoreId()));
         // Products in Purchase
         List<ProductWithId> productsInPurchase = new ArrayList<>();
         // Products which available for purchase, and will not end after purchase
@@ -91,7 +94,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
         if (!endedProducts.isEmpty()) {
             // deleting Products which ended
-            endedProducts.forEach(e->productRepository.delete(e));
+            endedProducts.forEach(e -> productRepository.delete(e));
         }
         return productsInPurchase;
     }
@@ -110,5 +113,23 @@ public class PurchaseServiceImpl implements PurchaseService {
                         .append(key.getAmount())
                         .append("     "));
         throw new LowerThanAvaibleException(sb.toString() + "Products can't be purchased. The quantity of products is lower than available. Change amount of ProductEntity or delete it from your request");
+    }
+
+    private void purchaseValidation(Purchase purchase) {
+        if (purchase.getStoreId() <= 0) {
+            throw new InvalidPropertyException("The Store id can't be 0 or negative number.");
+        }
+        positionsValidation(purchase.getPositions());
+    }
+
+    private void positionsValidation(Set<Position> positions) {
+        for (Position position : positions) {
+            if (position.getAmountOfProduct() <= 0) {
+                throw new InvalidPropertyException("Product amount can't be 0 or negative number.");
+            }
+            if (position.getIdOfProduct() <= 0) {
+                throw new InvalidPropertyException("Product id can't be 0 or negative number.");
+            }
+        }
     }
 }

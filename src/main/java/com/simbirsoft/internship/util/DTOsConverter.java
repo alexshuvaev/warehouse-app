@@ -4,17 +4,17 @@ import com.simbirsoft.internship.entity.CategoryEntity;
 import com.simbirsoft.internship.entity.ProductEntity;
 import com.simbirsoft.internship.entity.WriteOffEntity;
 import com.simbirsoft.internship.entity.WriteOffProductEntity;
-import com.simbirsoft.internship.to.*;
-import com.simbirsoft.internship.to.category.CategoryWithId;
-import com.simbirsoft.internship.to.category.CategoryWithProducts;
-import com.simbirsoft.internship.to.product.Product;
-import com.simbirsoft.internship.to.product.ProductWithId;
+import com.simbirsoft.internship.dto.*;
+import com.simbirsoft.internship.dto.category.CategoryWithId;
+import com.simbirsoft.internship.dto.category.CategoryWithProducts;
+import com.simbirsoft.internship.dto.product.Product;
+import com.simbirsoft.internship.dto.product.ProductWithId;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public final class TosConverter {
-    private TosConverter() {
+public final class DTOsConverter {
+    private DTOsConverter() {
     }
 
     /**
@@ -46,7 +46,7 @@ public final class TosConverter {
      */
     private static Set<ProductWithId> productWithIdSetCreate(CategoryEntity category) {
         return category.getProducts().stream()
-                .map(TosConverter::productWithIdCreate)
+                .map(DTOsConverter::productWithIdCreate)
                 .collect(Collectors.toSet());
     }
 
@@ -62,7 +62,7 @@ public final class TosConverter {
 
     public static List<Product> productsListCreate(List<ProductEntity> productEntityList) {
         return productEntityList.stream()
-                .map(TosConverter::productCreate)
+                .map(DTOsConverter::productCreate)
                 .collect(Collectors.toList());
     }
 
@@ -100,6 +100,7 @@ public final class TosConverter {
         return new WriteOffProductEntity(
                 null,
                 productEntity.getName(),
+                productEntity.getDescription(),
                 productEntity.getId(),
                 productEntity.getCategory().getId(),
                 productEntity.getPrice(),
@@ -109,7 +110,7 @@ public final class TosConverter {
 
     public static List<WriteOffToConfirm> writeOffToConfirmListCreate(List<WriteOffEntity> writeOffEntityList) {
         return writeOffEntityList.stream()
-                .map(TosConverter::writeOffToConfirmCreate)
+                .map(DTOsConverter::writeOffToConfirmCreate)
                 .collect(Collectors.toList());
     }
 
@@ -124,7 +125,7 @@ public final class TosConverter {
 
   public static List<ProductWithId> productWithIdListCreate(Set<WriteOffProductEntity> productEntityList) {
         return productEntityList.stream()
-                .map(TosConverter::productWithIdForWriteOffListCreate)
+                .map(DTOsConverter::productWithIdForWriteOffListCreate)
                 .collect(Collectors.toList());
     }
 
