@@ -115,6 +115,10 @@ public class PurchaseServiceImpl implements PurchaseService {
         throw new LowerThanAvaibleException(sb.toString() + "Products can't be purchased. The quantity of products is lower than available. Change amount of ProductEntity or delete it from your request");
     }
 
+    /**
+     * Purchase validation
+     **/
+
     private void purchaseValidation(Purchase purchase) {
         if (purchase.getStoreId() <= 0) {
             throw new InvalidPropertyException("The Store id can't be 0 or negative number.");

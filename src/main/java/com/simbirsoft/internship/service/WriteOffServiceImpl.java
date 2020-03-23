@@ -10,6 +10,7 @@ import com.simbirsoft.internship.dto.Position;
 import com.simbirsoft.internship.dto.WriteOff;
 import com.simbirsoft.internship.util.exception.AlreadyConfirmedException;
 import com.simbirsoft.internship.util.exception.InvalidPropertyException;
+import com.simbirsoft.internship.util.exception.LowerThanAvaibleException;
 import com.simbirsoft.internship.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,7 +78,7 @@ public class WriteOffServiceImpl implements WriteOffService {
                 endedProducts.add(e);
             }
             if (e.getAmount() < 0) {
-                throw new InvalidPropertyException("Product availability is lower than in the Write-Off list. Product id=" + e.getId());
+                throw new LowerThanAvaibleException("Product availability is lower than in the Write-Off list. Product id=" + e.getId());
             }
         });
         if (!updatedProducts.isEmpty()){
@@ -147,6 +148,9 @@ public class WriteOffServiceImpl implements WriteOffService {
         return "Write-off is canceled. Products quantities are restored.";
     }
 
+    /**
+     * WriteOff validation
+     **/
 
     private void writeOffValidation(Integer idOfProduct, int amountOfProduct){
         if (idOfProduct <= 0) {

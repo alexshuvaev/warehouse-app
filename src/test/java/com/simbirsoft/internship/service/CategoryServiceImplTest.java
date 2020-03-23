@@ -30,7 +30,7 @@ class CategoryServiceImplTest {
      **/
 
     @Test
-    void findAllTest() {
+    void findAll() {
         // given
         when(categoryRepository.findAll()).thenReturn(CATEGORY_ENTITIES);
         // when
@@ -42,7 +42,7 @@ class CategoryServiceImplTest {
     }
 
     @Test
-    void findByIdTest() {
+    void findById() {
         // given
         when(categoryRepository.findById(1)).thenReturn(java.util.Optional.of(CAT_1));
         // when
@@ -53,7 +53,7 @@ class CategoryServiceImplTest {
     }
 
     @Test
-    void findById_NotFoundTest() {
+    void findById_NotFound() {
         // given, when
         // than
         assertThrows(NotFoundException.class, () -> categoryService.findById(100));
@@ -65,7 +65,7 @@ class CategoryServiceImplTest {
      **/
 
     @Test
-    void createTest() {
+    void create() {
         // given
         when(categoryRepository.save(CAT_1)).thenReturn(CAT_1);
         // when
@@ -76,7 +76,7 @@ class CategoryServiceImplTest {
     }
 
     @Test
-    void create_NotUniqueNameTest() {
+    void create_NotUniqueName() {
         // given
         when(categoryRepository.existsByName(DUPLICATE_NAME_CAT.getName())).thenReturn(true);
         when(categoryRepository.save(DUPLICATE_NAME_CAT)).thenThrow(InvalidPropertyException.class);
@@ -87,7 +87,7 @@ class CategoryServiceImplTest {
     }
 
     @Test
-    void create_EmptyNameTest() {
+    void create_EmptyName() {
         // given
         when(categoryRepository.save(EMPTY_CAT_NAME)).thenThrow(InvalidPropertyException.class);
         // than
@@ -96,7 +96,7 @@ class CategoryServiceImplTest {
     }
 
     @Test
-    void create_SpecialCharsNameTest() {
+    void create_SpecialCharsName() {
         // given
         when(categoryRepository.save(INVALID_CAT_NAME)).thenThrow(InvalidPropertyException.class);
         // than
@@ -105,7 +105,7 @@ class CategoryServiceImplTest {
     }
 
     @Test
-    void create_OnlySpacesNameTest() {
+    void create_OnlySpacesName() {
         // given
         when(categoryRepository.save(ONLY_SPACE_CAT_NAME)).thenThrow(InvalidPropertyException.class);
         // than
@@ -118,7 +118,7 @@ class CategoryServiceImplTest {
      **/
 
     @Test
-    void updateTest() {
+    void update() {
         // given
         when(categoryRepository.findById(CAT_1.getId())).thenReturn(java.util.Optional.of(CAT_1));
         when(categoryRepository.save(CAT_FOR_UPDATE)).thenReturn(CAT_FOR_UPDATE);

@@ -34,7 +34,7 @@ class ProductServiceImplTest {
      **/
 
     @Test
-    void findByIdTest() {
+    void findById() {
         // given
         when(productRepository.findById(1)).thenReturn(java.util.Optional.of(PROD_ENTITY_1));
         // when
@@ -45,15 +45,7 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void findById_NotFoundTest() {
-        // given when
-        // than
-        assertThrows(NotFoundException.class, () -> productService.findById(100));
-        verify(productRepository, times(1)).findById(100);
-    }
-
-    @Test
-    void findAllByIdTest() {
+    void findAllById() {
         // given
         Set<Integer> ids = new HashSet<>(Arrays.asList(1, 2, 3));
         when(productRepository.findAllById(ids)).thenReturn(Arrays.asList(PROD_ENTITY_1, PROD_ENTITY_2, PROD_ENTITY_3));
@@ -65,7 +57,15 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void findAllById_NotFoundTest() {
+    void findById_NotFound() {
+        // given when
+        // than
+        assertThrows(NotFoundException.class, () -> productService.findById(100));
+        verify(productRepository, times(1)).findById(100);
+    }
+
+    @Test
+    void findAllById_NotFound() {
         // given
         Set<Integer> ids = new HashSet<>(Arrays.asList(1, 60, 2, 3, 50));
         when(productRepository.findAllById(ids)).thenReturn(Arrays.asList(PROD_ENTITY_1, PROD_ENTITY_2, PROD_ENTITY_3));
@@ -79,7 +79,7 @@ class ProductServiceImplTest {
      **/
 
     @Test
-    void createNewInvoiceTest() {
+    void createNewInvoice() {
         // given
         when(productRepository.saveAll(anyCollection())).thenReturn(Arrays.asList(PROD_ENTITY_1, PROD_ENTITY_2, PROD_ENTITY_3));
         when(productRepository.findByName(anyString())).thenReturn(Optional.empty());
@@ -98,7 +98,7 @@ class ProductServiceImplTest {
      **/
 
     @Test
-    void createInvoice_UpdateAmountProductsTest() {
+    void createInvoice_UpdateAmountProducts() {
         // given
         when(productRepository.saveAll(anyCollection())).thenReturn(Arrays.asList(PROD_ENTITY_1, PROD_ENTITY_2, PROD_ENTITY_3));
         when(productRepository.findByName(anyString())).thenReturn(java.util.Optional.of(PROD_ENTITY_1));
@@ -116,7 +116,7 @@ class ProductServiceImplTest {
      **/
 
     @Test
-    void createNewInvoice_CatNotFoundTest() {
+    void createNewInvoice_CatNotFound() {
         // given
         when(productRepository.saveAll(anyCollection())).thenReturn(Arrays.asList(PROD_ENTITY_1, PROD_ENTITY_2, PROD_ENTITY_3));
         when(productRepository.findByName(anyString())).thenReturn(Optional.empty());
@@ -128,41 +128,46 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void createInvoice_UpdateInvalidNameProductsTest() {
+    void createInvoice_UpdateInvalidNameProducts() {
         // when
         assertThrows(InvalidPropertyException.class, () -> productService.createList(Arrays.asList(PROD_DTO_INVALID_NAME, PROD_DTO_2, PROD_DTO_3)));
+        // than
         verifyNullTimes();
     }
 
     @Test
-    void createInvoice_UpdateInvalidDescProductsTest() {
+    void createInvoice_UpdateInvalidDescProducts() {
         // when
         assertThrows(InvalidPropertyException.class, () -> productService.createList(Arrays.asList(PROD_DTO_INVALID_DESC, PROD_DTO_2, PROD_DTO_3)));
+        // than
         verifyNullTimes();
     }
 
     @Test
-    void createInvoice_UpdateInvalidPriceProductsTest() {
+    void createInvoice_UpdateInvalidPriceProducts() {
         // when
         assertThrows(InvalidPropertyException.class, () -> productService.createList(Arrays.asList(PROD_DTO_INVALID_PRICE, PROD_DTO_2, PROD_DTO_3)));
+        // than
         verifyNullTimes();
     }
 
     @Test
-    void createInvoice_UpdateInvalidAmountProductsTest() {
+    void createInvoice_UpdateInvalidAmountProducts() {
         // when
         assertThrows(InvalidPropertyException.class, () -> productService.createList(Arrays.asList(PROD_DTO_INVALID_AMOUNT, PROD_DTO_2, PROD_DTO_3)));
+        // than
         verifyNullTimes();
     }
 
     @Test
-    void createInvoice_UpdateInvalidCatIdProductsTest() {
+    void createInvoice_UpdateInvalidCatIdProducts() {
         // when
         assertThrows(InvalidPropertyException.class, () -> productService.createList(Arrays.asList(PROD_DTO_INVALID_CATID, PROD_DTO_2, PROD_DTO_3)));
+        // than
         verifyNullTimes();
     }
 
-    private void verifyNullTimes(){
+    private void verifyNullTimes() {
         verify(productRepository, times(0)).saveAll(anyCollection());
         verify(productRepository, times(0)).findByName(anyString());
         verify(categoryRepository, times(0)).findById(anyInt());

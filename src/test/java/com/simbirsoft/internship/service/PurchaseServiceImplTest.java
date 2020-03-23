@@ -34,7 +34,7 @@ class PurchaseServiceImplTest {
     private PurchaseService purchaseService;
 
     @Test
-    void makeAnPurchaseTest() {
+    void makeAnPurchase() {
         // when
         when(storeRepository.findById(any())).thenReturn(java.util.Optional.of(STORE));
         when(productRepository.findById(any())).thenReturn(Optional.of(AVAILABLE_PROD));
@@ -50,7 +50,7 @@ class PurchaseServiceImplTest {
     }
 
     @Test
-    void makeAnPurchase_ProductEndTest() {
+    void makeAnPurchase_ProductEnd() {
         // when
         when(storeRepository.findById(any())).thenReturn(java.util.Optional.of(STORE));
         when(productRepository.findById(any())).thenReturn(Optional.of(AVAILABLE_PROD_THAN_END));
@@ -66,7 +66,7 @@ class PurchaseServiceImplTest {
     }
 
     @Test
-    void makeAnPurchase_LowerThanAvailableTest() {
+    void makeAnPurchase_LowerThanAvailable() {
         // when
         when(storeRepository.findById(any())).thenReturn(java.util.Optional.of(STORE));
         when(productRepository.findById(any())).thenReturn(Optional.of(AVAILABLE_PROD));
@@ -81,32 +81,43 @@ class PurchaseServiceImplTest {
     }
 
    @Test
-    void makeAnPurchase_ProductNotFoundTest() {
+    void makeAnPurchase_ProductNotFound() {
+        // when
         when(storeRepository.findById(any())).thenReturn(java.util.Optional.of(STORE));
         when(productRepository.findById(any())).thenReturn(Optional.empty());
-        assertThrows(NotFoundException.class, () -> purchaseService.makeAnPurchase(PURCHASE));
-        verify(storeRepository, times(1)).findById(anyInt());
+       // given
+       assertThrows(NotFoundException.class, () -> purchaseService.makeAnPurchase(PURCHASE));
+       // than
+       verify(storeRepository, times(1)).findById(anyInt());
         verify(productRepository, times(1)).findById(anyInt());
     }
 
+    /**
+     * Purchase Exception
+     **/
+
     @Test
-    void makeAnPurchase_InvalidStoreIdTest() {
+    void makeAnPurchase_InvalidStoreId() {
+        // given
         assertThrows(InvalidPropertyException.class, () -> purchaseService.makeAnPurchase(PURCHASE_INVALID_STOREID));
+        // than
         verifyNullTimes();
     }
 
     @Test
-    void makeAnPurchase_InvalidAmountOfProductTest() {
-        // when
+    void makeAnPurchase_InvalidAmountOfProduct() {
+        // given
         assertThrows(InvalidPropertyException.class, () -> purchaseService.makeAnPurchase(PURCHASE_INVALID_AMOUNT));
+        // than
         verifyNullTimes();
 
     }
 
     @Test
-    void makeAnPurchase_InvalidIdOfProductTest() {
-        // when
+    void makeAnPurchase_InvalidIdOfProduct() {
+        // given
         assertThrows(InvalidPropertyException.class, () -> purchaseService.makeAnPurchase(PURCHASE_INVALID_ID));
+        // than
         verifyNullTimes();
     }
 

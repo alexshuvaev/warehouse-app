@@ -61,17 +61,4 @@ public class Product {
     public Integer getCategoryId() {
         return categoryId;
     }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", amount=" + amount +
-                ", categoryId=" + categoryId +
-                '}';
-    }
-
-
 }

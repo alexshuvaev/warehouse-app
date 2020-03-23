@@ -1,5 +1,6 @@
 package com.simbirsoft.internship;
 
+import com.simbirsoft.internship.dto.WriteOff;
 import com.simbirsoft.internship.entity.*;
 import com.simbirsoft.internship.dto.Position;
 import com.simbirsoft.internship.dto.Purchase;
@@ -75,6 +76,11 @@ public class TestData {
     public static final Purchase PURCHASE_INVALID_ID = new Purchase(1, new HashSet<>(Arrays.asList(POSITION_INVALID_ID, POSITION_2, POSITION_3)));
 
     // Write-Off
+
+    public static final WriteOff WRITEOFF = new WriteOff(new HashSet<>(Arrays.asList(POSITION_1, POSITION_2)));
+    public static final WriteOff WRITEOFF_LOWER_THAN_AVAL = new WriteOff(new HashSet<>(Collections.singletonList(POSITION_LOWER_THAN_AVAL)));
+    public static final WriteOff WRITEOFF_INVALID_PRODUCTID = new WriteOff(new HashSet<>(Collections.singletonList(POSITION_INVALID_ID)));
+    public static final WriteOff WRITEOFF_INVALID_AMOUNT = new WriteOff(new HashSet<>(Collections.singletonList(POSITION_INVALID_AMOUNT)));
 
     public static final WriteOffProductEntity WR_OFF_PROD_ENT_1 = new WriteOffProductEntity(1, "Продукт 1", "Описание 1", 1, 1, 300, 10, new WriteOffEntity());
     public static final WriteOffProductEntity WR_OFF_PROD_ENT_2 = new WriteOffProductEntity(2, "Продукт 2", "Описание 2", 2, 1, 300, 10, new WriteOffEntity());
