@@ -2,9 +2,9 @@ package com.simbirsoft.internship.web.api;
 
 import com.simbirsoft.internship.entity.CategoryEntity;
 import com.simbirsoft.internship.service.CategoryService;
-import com.simbirsoft.internship.to.category.Category;
-import com.simbirsoft.internship.to.category.CategoryWithId;
-import com.simbirsoft.internship.to.category.CategoryWithProducts;
+import com.simbirsoft.internship.dto.category.Category;
+import com.simbirsoft.internship.dto.category.CategoryWithId;
+import com.simbirsoft.internship.dto.category.CategoryWithProducts;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.simbirsoft.internship.util.TosConverter.*;
+import static com.simbirsoft.internship.util.DTOsConverter.*;
 
 @RestController
 @RequestMapping("/api/category")
@@ -43,7 +43,7 @@ public class CategoryRestController {
      * @param id of the getting Category.
      * @return Category entity with Product entities, if Category not null. If Category=null will be NotFoundException.
      */
-    @ApiOperation(value = "Find Category by id", notes = "Provide an id to get single Category from DB")
+    @ApiOperation(value = "Find Category by id", notes = "Provide an id dto get single Category from DB")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public CategoryWithProducts get(@PathVariable int id) {
@@ -55,7 +55,7 @@ public class CategoryRestController {
      * Create single Category.
      *
      * @param category Category which will be saved if name is unique.
-     * @return Category entity. if Category name not unique will return MustBeUniqueException.
+     * @return Category entity. if Category name not unique will return InvalidPropertyException.
      */
     @ApiOperation(value = "Create single Category", notes = "Provide new name for Category. Only single Category can be create in request.")
     @ResponseStatus(HttpStatus.CREATED)

@@ -1,8 +1,8 @@
 package com.simbirsoft.internship.web.api;
 
 import com.simbirsoft.internship.service.PurchaseService;
-import com.simbirsoft.internship.to.Purchase;
-import com.simbirsoft.internship.to.product.ProductWithId;
+import com.simbirsoft.internship.dto.Purchase;
+import com.simbirsoft.internship.dto.product.ProductWithId;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +27,8 @@ public class PurchaseRestController {
      * @param purchase include positions of products which will be ordered.
      * @return list of purchased Products. If amount of available Products lower than amount in Purchase, will be LowerThanAvaibleException.
      */
-    @ApiOperation(value = "Make a purchase", notes = "Input positions which need to order. " +
-            "Each position have to contains id and quantity of Product. Purchase have to contains Store id.")
+    @ApiOperation(value = "Make a purchase", notes = "Input positions which need dto order. " +
+            "Each position have dto contains id and quantity of Product. Purchase have dto contains Store id.")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     public List<ProductWithId> makeAPurchase(@RequestBody Purchase purchase) {

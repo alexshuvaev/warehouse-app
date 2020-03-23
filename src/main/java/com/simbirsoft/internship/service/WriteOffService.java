@@ -1,7 +1,7 @@
 package com.simbirsoft.internship.service;
 
 import com.simbirsoft.internship.entity.WriteOffEntity;
-import com.simbirsoft.internship.to.WriteOff;
+import com.simbirsoft.internship.dto.WriteOff;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public interface WriteOffService {
     WriteOffEntity findById(int id);
 
     /**
-     * Create list of Products to write-off.
+     * Create list of Products dto write-off.
      * Products are reserving and update quantity in warehouse.
      *
      * @param writeOff list with Positions of Products for write-off.
@@ -36,7 +36,7 @@ public interface WriteOffService {
      * Confirmation Products Write-off.
      *
      * @param id of Write-off list.
-     * @param confirm password to confirm write-off.
+     * @param confirm password dto confirm write-off.
      * @return info message.
      */
     String confirm(int id, String confirm);

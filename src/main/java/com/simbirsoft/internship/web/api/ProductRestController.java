@@ -1,9 +1,9 @@
 package com.simbirsoft.internship.web.api;
 
 import com.simbirsoft.internship.service.ProductService;
-import com.simbirsoft.internship.to.Invoice;
-import com.simbirsoft.internship.to.product.Product;
-import com.simbirsoft.internship.to.product.ProductWithId;
+import com.simbirsoft.internship.dto.Invoice;
+import com.simbirsoft.internship.dto.product.Product;
+import com.simbirsoft.internship.dto.product.ProductWithId;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.simbirsoft.internship.util.TosConverter.*;
+import static com.simbirsoft.internship.util.DTOsConverter.*;
 
 @RestController
 @RequestMapping("/api/product")
@@ -29,7 +29,7 @@ public class ProductRestController {
      * @param id of the getting Product.
      * @return Product entity, if not null. If Product=null will be NotFoundException.
      */
-    @ApiOperation(value = "Find Product by id", notes = "Provide an id to get single Product from DB")
+    @ApiOperation(value = "Find Product by id", notes = "Provide an id dto get single Product from DB")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public ProductWithId get(@PathVariable int id) {
@@ -37,7 +37,7 @@ public class ProductRestController {
     }
 
     /**
-     * Create List of Products by Invoice to DB.
+     * Create List of Products by Invoice dto DB.
      *
      * @param invoice with data of Products.
      * @return List of saved Products.

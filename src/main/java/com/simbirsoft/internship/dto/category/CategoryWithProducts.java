@@ -1,7 +1,7 @@
-package com.simbirsoft.internship.to.category;
+package com.simbirsoft.internship.dto.category;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.simbirsoft.internship.to.product.ProductWithId;
+import com.simbirsoft.internship.dto.product.ProductWithId;
 
 import java.util.HashSet;
 import java.util.Set;

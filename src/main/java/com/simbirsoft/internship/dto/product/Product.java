@@ -1,4 +1,4 @@
-package com.simbirsoft.internship.to.product;
+package com.simbirsoft.internship.dto.product;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -60,10 +60,5 @@ public class Product {
 
     public Integer getCategoryId() {
         return categoryId;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 }

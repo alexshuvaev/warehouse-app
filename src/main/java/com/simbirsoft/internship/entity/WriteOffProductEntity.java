@@ -5,6 +5,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "writeoff_product")
 public class WriteOffProductEntity extends AbstractNamedEntity {
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "product_id")
     private int productId;
 
@@ -28,13 +31,22 @@ public class WriteOffProductEntity extends AbstractNamedEntity {
         super(id, name);
     }
 
-    public WriteOffProductEntity(Integer id, String name, int productId, int categoryId, double price, int amount, WriteOffEntity writeOff) {
+    public WriteOffProductEntity(Integer id, String name, String description, int productId, int categoryId, double price, int amount, WriteOffEntity writeOff) {
         this(id, name);
+        this.description = description;
         this.productId = productId;
         this.categoryId = categoryId;
         this.price = price;
         this.amount = amount;
         this.writeOff = writeOff;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getAmount() {
@@ -59,8 +71,10 @@ public class WriteOffProductEntity extends AbstractNamedEntity {
 
     @Override
     public String toString() {
-        return "WriteOffProductEntity{" +
-                "productId=" + productId +
+        return "WriteOffProductEntity{ " +
+                getName() +
+                " description='" + description + '\'' +
+                ", productId=" + productId +
                 ", price=" + price +
                 ", amount=" + amount +
                 ", categoryId=" + categoryId +

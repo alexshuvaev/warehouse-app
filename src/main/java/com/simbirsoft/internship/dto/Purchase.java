@@ -1,4 +1,4 @@
-package com.simbirsoft.internship.to;
+package com.simbirsoft.internship.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -16,6 +16,11 @@ public class Purchase {
 
     public Purchase(Set<Position> positions) {
         this.positions = positions;
+    }
+
+    public Purchase(int storeId, Set<Position> positions) {
+        this(positions);
+        this.storeId = storeId;
     }
 
     public Set<Position> getPositions() {

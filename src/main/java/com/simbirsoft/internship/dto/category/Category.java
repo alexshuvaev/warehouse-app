@@ -1,4 +1,4 @@
-package com.simbirsoft.internship.to.category;
+package com.simbirsoft.internship.dto.category;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

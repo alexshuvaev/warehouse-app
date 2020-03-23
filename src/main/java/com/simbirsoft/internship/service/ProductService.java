@@ -1,7 +1,7 @@
 package com.simbirsoft.internship.service;
 
 import com.simbirsoft.internship.entity.ProductEntity;
-import com.simbirsoft.internship.to.product.Product;
+import com.simbirsoft.internship.dto.product.Product;
 
 import java.util.List;
 import java.util.Set;
@@ -28,7 +28,7 @@ public interface ProductService {
      *
      * @param productList list of new Products.
      * @return list of new saved in DB Products.
-     * If ProductEntity name not unique will be MustBeUniqueException.
+     * If ProductEntity name not unique will be InvalidPropertyException.
      * If Category not found by id (Category id must be provided in each Product) will be NotFoundException.
      */
     List<ProductEntity> createList(List<Product> productList);

@@ -2,8 +2,8 @@ package com.simbirsoft.internship.web.api;
 
 import com.simbirsoft.internship.entity.WriteOffEntity;
 import com.simbirsoft.internship.service.WriteOffService;
-import com.simbirsoft.internship.to.WriteOff;
-import com.simbirsoft.internship.to.WriteOffToConfirm;
+import com.simbirsoft.internship.dto.WriteOff;
+import com.simbirsoft.internship.dto.WriteOffToConfirm;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.simbirsoft.internship.util.TosConverter.writeOffToConfirmCreate;
-import static com.simbirsoft.internship.util.TosConverter.writeOffToConfirmListCreate;
+import static com.simbirsoft.internship.util.DTOsConverter.writeOffToConfirmCreate;
+import static com.simbirsoft.internship.util.DTOsConverter.writeOffToConfirmListCreate;
 
 @RestController
 @RequestMapping("/api/write-off")
@@ -43,7 +43,7 @@ public class WriteOffRestController {
      * @param id of the getting Write-off.
      * @return Write-off list with Products, if Write-off not null, otherwise will be NotFoundException.
      */
-    @ApiOperation(value = "Get single Write-off list", notes = "Provide an id to get single Write-off list")
+    @ApiOperation(value = "Get single Write-off list", notes = "Provide an id dto get single Write-off list")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public WriteOffToConfirm get(@PathVariable int id) {
@@ -52,12 +52,12 @@ public class WriteOffRestController {
     }
 
     /**
-     * Create list of Products to Write-off.
+     * Create list of Products dto Write-off.
      *
      * @param writeOff Write-off entity with list of Products.
      * @return created Write-off list of Products.
      */
-    @ApiOperation(value = "Create list of Products to write-off", notes = "Input list of Products (id and amount), that must be write-off")
+    @ApiOperation(value = "Create list of Products dto write-off", notes = "Input list of Products (id and amount), that must be write-off")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     public WriteOffToConfirm createList(@RequestBody WriteOff writeOff) {
@@ -69,10 +69,10 @@ public class WriteOffRestController {
      * Confirm write-off.
      *
      * @param id      of Write-off.
-     * @param confirm code word to execute write-off.
+     * @param confirm code word dto execute write-off.
      * @return successful or error message.
      */
-    @ApiOperation(value = "Confirm for write-off", notes = "Provide an id of write-off list, and a code word to confirm write-off")
+    @ApiOperation(value = "Confirm for write-off", notes = "Provide an id of write-off list, and a code word dto confirm write-off")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{id}/confirm")
     public String confirm(@PathVariable int id, @RequestBody String confirm) {
@@ -83,7 +83,7 @@ public class WriteOffRestController {
      * Delete write-off entity.
      *
      * @param id      of Write-off.
-     * @param confirm code word to execute deleting of write-off.
+     * @param confirm code word dto execute deleting of write-off.
      * @return successful or error message.
      */
     @ApiOperation(value = "Delete Write-off", notes = "Provide an id of Write-off list which must be deleted. " +

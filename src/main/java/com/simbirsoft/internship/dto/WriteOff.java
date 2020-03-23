@@ -1,4 +1,4 @@
-package com.simbirsoft.internship.to;
+package com.simbirsoft.internship.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,6 +10,10 @@ public class WriteOff {
     private Set<Position> positionsForWriteoff = new HashSet<>();
 
     public WriteOff() {
+    }
+
+    public WriteOff(Set<Position> positionsForWriteoff) {
+        this.positionsForWriteoff = positionsForWriteoff;
     }
 
     public Set<Position> getPositionsForWriteoff() {
