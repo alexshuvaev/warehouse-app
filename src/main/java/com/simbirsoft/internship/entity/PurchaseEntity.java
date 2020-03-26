@@ -1,5 +1,7 @@
 package com.simbirsoft.internship.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,10 +12,12 @@ public class PurchaseEntity extends AbstractDateTimeEntity {
     @Column(name = "total_price")
     private double totalPrice;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "store_id")
     private StoreEntity store;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "purchase_product",
             joinColumns = {@JoinColumn(name = "purchase_id")},
@@ -34,7 +38,7 @@ public class PurchaseEntity extends AbstractDateTimeEntity {
         return products;
     }
 
-    public double getTotalPrice() {
+    public Double getTotalPrice() {
         return totalPrice;
     }
 
@@ -44,5 +48,13 @@ public class PurchaseEntity extends AbstractDateTimeEntity {
 
     public void setProducts(Set<ProductEntity> productEntitySet) {
         this.products = productEntitySet;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setStore(StoreEntity store) {
+        this.store = store;
     }
 }

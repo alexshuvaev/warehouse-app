@@ -8,13 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
-    /**
-     * Validation by name. Product name must be unique.
-     *
-     * @param name of Product.
-     * @return true if Product with this name exist, or false if not.
-     */
-    boolean existsByName(String name);
-
     Optional<ProductEntity> findByName(String name);
 }

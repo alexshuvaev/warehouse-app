@@ -12,6 +12,7 @@ import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger.web.UiConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.time.LocalDate;
 import java.util.Collections;
 
 @Configuration
@@ -24,6 +25,7 @@ public class SpringFoxConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.simbirsoft"))
                 .paths(PathSelectors.any())
                 .build()
+                .directModelSubstitute(LocalDate.class, java.sql.Date.class)
                 .apiInfo(apiDetails());
     }
 

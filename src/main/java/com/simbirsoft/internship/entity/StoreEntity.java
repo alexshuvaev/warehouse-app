@@ -1,14 +1,11 @@
 package com.simbirsoft.internship.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="store")
+@Table(name = "store")
 public class StoreEntity extends AbstractNamedEntity {
     @Column(name = "address")
     private String address;
