@@ -81,6 +81,13 @@
                 <constraints nullable="false" foreignKeyName="fk_order_store" references="store(id)"/>
             </column>
         </createTable>
+        <createIndex
+                clustered="true"
+                indexName="idx_date_time_purchase"
+                tableName="purchase"
+                unique="true">
+            <column name="date_time"/>
+        </createIndex>
 
         <!-- Writeoff entity -->
         <createTable tableName="writeoff">
@@ -97,7 +104,7 @@
         </createTable>
         <createIndex
                 clustered="true"
-                indexName="idx_date_time"
+                indexName="idx_date_time_writeoff"
                 tableName="writeoff"
                 unique="true">
             <column name="date_time"/>
