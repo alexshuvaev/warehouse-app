@@ -8,7 +8,7 @@ public class Purchase {
     @JsonProperty("store_id")
     private int storeId;
 
-    @JsonProperty("products_for_purchase")
+    @JsonProperty("products")
     private Set<Position> positions = new HashSet<>();
 
     public Purchase() {
@@ -23,11 +23,16 @@ public class Purchase {
         this.storeId = storeId;
     }
 
+    public int getStoreId() {
+        return storeId;
+    }
+
     public Set<Position> getPositions() {
         return positions;
     }
 
-    public int getStoreId() {
-        return storeId;
+    @Override
+    public String toString() {
+        return "storeId=" + storeId + " positions=" + positions;
     }
 }

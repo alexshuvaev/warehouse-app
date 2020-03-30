@@ -6,9 +6,25 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@NamedQuery(name = PurchaseEntity.GET_ALL_BETWEEN,
+        query = "SELECT p FROM PurchaseEntity p " +
+                "WHERE p.dateTime >= :startDate AND p.dateTime < :endDate " +
+                "ORDER BY p.dateTime DESC")
+@NamedQuery(name = PurchaseEntity.GET_SOLD,
+        query = "SELECT prod.name as name, SUM(prod.amount) as amount, SUM(prod.price) as price, prod.categoryId as cat " +
+                "FROM PurchaseProductEntity prod JOIN FETCH PurchaseEntity purch " +
+                "ON prod.purchase.id = purch.id " +
+                "WHERE purch.store.id = :storeId " +
+                "AND (purch.dateTime >= :startDate AND purch.dateTime <= :endDate) " +
+                "GROUP BY name, purch.store.id, cat " +
+                "ORDER BY name, amount DESC"
+)
 @Entity
 @Table(name = "purchase")
 public class PurchaseEntity extends AbstractDateTimeEntity {
+    public static final String GET_ALL_BETWEEN = "PurchaseEntity.getAllBetween";
+    public static final String GET_SOLD = "PurchaseEntity.getSoldPurchases";
+
     @Column(name = "total_price")
     private double totalPrice;
 
@@ -18,43 +34,51 @@ public class PurchaseEntity extends AbstractDateTimeEntity {
     private StoreEntity store;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "purchase_product",
-            joinColumns = {@JoinColumn(name = "purchase_id")},
-            inverseJoinColumns = {@JoinColumn(name = "product_id")})
-    private Set<ProductEntity> products = new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "purchase", cascade = CascadeType.ALL)
+    private Set<PurchaseProductEntity> products = new HashSet<>();
 
     public PurchaseEntity() {
     }
 
-    public PurchaseEntity(Integer id, StoreEntity store, Set<ProductEntity> products, double totalPrice) {
+    public PurchaseEntity(Integer id, StoreEntity store, Set<PurchaseProductEntity> products, double totalPrice) {
         super(id);
         this.store = store;
         this.products = products;
         this.totalPrice = totalPrice;
     }
 
-    public Set<ProductEntity> getProducts() {
-        return products;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    public Double getTotalPrice() {
-        return totalPrice;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public StoreEntity getStore() {
         return store;
     }
 
-    public void setProducts(Set<ProductEntity> productEntitySet) {
-        this.products = productEntitySet;
+    public Set<PurchaseProductEntity> getProducts() {
+        return products;
     }
 
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setProducts(Set<PurchaseProductEntity> products) {
+        this.products = products;
     }
 
-    public void setStore(StoreEntity store) {
-        this.store = store;
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " totalPrice=" + totalPrice + " storeId=" + store.getId() + " Products=" + products;
     }
 }

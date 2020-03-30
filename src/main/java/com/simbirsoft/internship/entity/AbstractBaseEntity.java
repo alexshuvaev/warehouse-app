@@ -39,4 +39,9 @@ public abstract class AbstractBaseEntity {
     public int hashCode() {
         return id == null ? 0 : id * 31;
     }
+
+    @Override
+    public String toString() {
+        return getId() != null ? "id=" + getId().toString() : "id=null";
+    }
 }

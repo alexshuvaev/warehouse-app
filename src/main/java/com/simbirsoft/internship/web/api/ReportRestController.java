@@ -1,7 +1,10 @@
 package com.simbirsoft.internship.web.api;
 
-import com.simbirsoft.internship.dto.report.MainKpiReport;
+import com.simbirsoft.internship.dto.report.RevenueReport;
+import com.simbirsoft.internship.dto.report.StoreSalesReport;
+import com.simbirsoft.internship.dto.report.WriteOffReport;
 import com.simbirsoft.internship.service.ReportService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,23 +14,39 @@ import java.time.LocalDate;
 @RestController
 @RequestMapping("/api/report")
 public class ReportRestController {
-    // DB doesn't support LocalDate.MIN/MAX
-    private static final LocalDate MIN_DATE = LocalDate.of(1, 1, 1);
-    private static final LocalDate MAX_DATE = LocalDate.of(3000, 1, 1);
-
     private ReportService reportService;
 
+    @Autowired
     public ReportRestController(ReportService reportService) {
         this.reportService = reportService;
     }
 
+    /**
+     *
+     *
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "")
-    public MainKpiReport getMainKpi(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+    public RevenueReport getRevenueReport(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                          @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return reportService.getRevenueReport(startDate, endDate);
+    }
 
-        return reportService.getMainKpi(
-                startDate != null ? startDate : MIN_DATE,
-                endDate != null ? endDate: MAX_DATE);
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/store/{storeId}")
+    public StoreSalesReport getStoreSalesReport(@PathVariable int storeId,
+                                                @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                                @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return reportService.getStoreSalesReport(storeId, startDate, endDate);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/writeoff")
+    public WriteOffReport getWriteOffReport(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return reportService.getWriteOffReport(startDate, endDate);
     }
 }

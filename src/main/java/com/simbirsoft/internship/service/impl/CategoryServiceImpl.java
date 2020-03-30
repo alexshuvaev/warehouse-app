@@ -1,7 +1,8 @@
-package com.simbirsoft.internship.service;
+package com.simbirsoft.internship.service.impl;
 
 import com.simbirsoft.internship.entity.CategoryEntity;
 import com.simbirsoft.internship.repository.CategoryRepository;
+import com.simbirsoft.internship.service.CategoryService;
 import com.simbirsoft.internship.util.exception.InvalidPropertyException;
 import com.simbirsoft.internship.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

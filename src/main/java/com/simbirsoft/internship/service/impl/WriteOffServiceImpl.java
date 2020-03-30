@@ -1,16 +1,17 @@
-package com.simbirsoft.internship.service;
+package com.simbirsoft.internship.service.impl;
 
+import com.simbirsoft.internship.dto.Position;
+import com.simbirsoft.internship.dto.WriteOff;
 import com.simbirsoft.internship.entity.ProductEntity;
 import com.simbirsoft.internship.entity.WriteOffEntity;
 import com.simbirsoft.internship.entity.WriteOffProductEntity;
 import com.simbirsoft.internship.repository.CategoryRepository;
 import com.simbirsoft.internship.repository.ProductRepository;
 import com.simbirsoft.internship.repository.WriteOffRepository;
-import com.simbirsoft.internship.dto.Position;
-import com.simbirsoft.internship.dto.WriteOff;
+import com.simbirsoft.internship.service.ProductService;
+import com.simbirsoft.internship.service.UtilService;
+import com.simbirsoft.internship.service.WriteOffService;
 import com.simbirsoft.internship.util.exception.AlreadyConfirmedException;
-import com.simbirsoft.internship.util.exception.InvalidPropertyException;
-import com.simbirsoft.internship.util.exception.LowerThanAvaibleException;
 import com.simbirsoft.internship.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,15 +32,19 @@ public class WriteOffServiceImpl implements WriteOffService {
     private ProductRepository productRepository;
     private CategoryRepository categoryRepository;
 
+    private UtilService utilService;
+
     @Autowired
     public WriteOffServiceImpl(ProductService productService,
                                WriteOffRepository writeOffRepository,
                                ProductRepository productRepository,
-                               CategoryRepository categoryRepository) {
+                               CategoryRepository categoryRepository,
+                               UtilService utilService) {
         this.productService = productService;
         this.writeOffRepository = writeOffRepository;
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+        this.utilService = utilService;
     }
 
     @Override
@@ -57,8 +62,8 @@ public class WriteOffServiceImpl implements WriteOffService {
     public WriteOffEntity createWriteOff(WriteOff writeOff) {
         WriteOffEntity writeOffEntity = new WriteOffEntity(null, Collections.emptySet(), false);
 
-        Map<Integer, Integer> map = writeOff.getPositionsForWriteoff().stream()
-                .peek(e-> writeOffValidation(e.getIdOfProduct(), e.getAmountOfProduct()))
+        Map<Integer, Integer> map = writeOff.getPositions().stream()
+                .peek(e -> utilService.validation(e.getIdOfProduct(), e.getAmountOfProduct()))
                 .collect(Collectors.toMap(Position::getIdOfProduct, Position::getAmountOfProduct));
 
         List<ProductEntity> products = productService.findAllById(map.keySet());
@@ -67,33 +72,15 @@ public class WriteOffServiceImpl implements WriteOffService {
         writeOffEntity.setProducts(writeOffProductEntity);
         writeOffEntity.setTotalPrice(sum(writeOffProductEntity));
 
-        List<ProductEntity> updatedProducts = new ArrayList<>();
-        List<ProductEntity> endedProducts = new ArrayList<>();
-        products.forEach(e-> {
-            e.setAmount(e.getAmount() - map.get(e.getId()));
-            if (e.getAmount() >= 0) {
-                updatedProducts.add(e);
-            }
-            if (e.getAmount() == 0) {
-                endedProducts.add(e);
-            }
-            if (e.getAmount() < 0) {
-                throw new LowerThanAvaibleException("Product availability is lower than in the Write-Off list. Product id=" + e.getId());
-            }
-        });
-        if (!updatedProducts.isEmpty()){
-            productRepository.saveAll(updatedProducts);
-        }
-        if (!endedProducts.isEmpty()){
-            productRepository.deleteAll(endedProducts);
-        }
+        utilService.availabilityCheckAndCommit(products, map);
+
         writeOffRepository.save(writeOffEntity);
         return writeOffEntity;
     }
 
     private double sum(Collection<WriteOffProductEntity> products) {
         return products.stream()
-                .map(WriteOffProductEntity::getPrice).collect(Collectors.toList()).stream()
+                .map(e -> e.getPrice() * e.getAmount()).collect(Collectors.toList()).stream()
                 .mapToDouble(Double::doubleValue).sum();
     }
 
@@ -146,18 +133,5 @@ public class WriteOffServiceImpl implements WriteOffService {
         productRepository.saveAll(productEntities);
         writeOffRepository.deleteById(id);
         return "Write-off is canceled. Products quantities are restored.";
-    }
-
-    /**
-     * WriteOff validation
-     **/
-
-    private void writeOffValidation(Integer idOfProduct, int amountOfProduct){
-        if (idOfProduct <= 0) {
-            throw new InvalidPropertyException("Product id must be positive number.");
-        }
-        if (amountOfProduct <= 0){
-            throw new InvalidPropertyException("Amount of product must be positive number.");
-        }
     }
 }

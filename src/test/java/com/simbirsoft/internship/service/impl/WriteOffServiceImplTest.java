@@ -1,9 +1,11 @@
-package com.simbirsoft.internship.service;
+package com.simbirsoft.internship.service.impl;
 
 import com.simbirsoft.internship.entity.WriteOffEntity;
 import com.simbirsoft.internship.repository.CategoryRepository;
 import com.simbirsoft.internship.repository.ProductRepository;
 import com.simbirsoft.internship.repository.WriteOffRepository;
+import com.simbirsoft.internship.service.ProductService;
+import com.simbirsoft.internship.service.WriteOffService;
 import com.simbirsoft.internship.util.exception.AlreadyConfirmedException;
 import com.simbirsoft.internship.util.exception.InvalidPropertyException;
 import com.simbirsoft.internship.util.exception.LowerThanAvaibleException;
@@ -20,7 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static com.simbirsoft.internship.TestData.*;
+import static com.simbirsoft.internship.testdata.WriteOffTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -75,7 +77,7 @@ class WriteOffServiceImplTest {
         // when
         WriteOffEntity result = writeOffService.createWriteOff(WRITEOFF);
         // than
-        assertEquals(WRITEOFF.getPositionsForWriteoff().size(), result.getProducts().size());
+        assertEquals(WRITEOFF.getPositions().size(), result.getProducts().size());
         verify(productRepository, times(1)).saveAll(Arrays.asList(PROD_ENTITY_1, PROD_ENTITY_2));
         verify(productRepository, times(0)).deleteAll(anyCollection());
         verify(writeOffRepository, times(1)).save(any());
@@ -186,8 +188,8 @@ class WriteOffServiceImplTest {
         // than
         assertEquals("Write-off is canceled. Products quantities are restored.", result);
         verify(writeOffRepository, times(1)).findById(any());
-        verify(productRepository, times(3)).findById(any());
-        verify(categoryRepository, times(3)).findById(any());
+        verify(productRepository, times(2)).findById(any());
+        verify(categoryRepository, times(2)).findById(any());
         verify(productRepository, times(1)).saveAll(any());
         verify(writeOffRepository, times(1)).deleteById(any());
     }

@@ -1,8 +1,6 @@
 package com.simbirsoft.internship.entity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -19,12 +17,6 @@ public class ProductEntity extends AbstractNamedEntity {
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "purchase_product",
-            joinColumns = {@JoinColumn(name = "product_id")},
-            inverseJoinColumns = {@JoinColumn(name = "purchase_id")})
-    private Set<PurchaseEntity> purchases = new HashSet<>();
 
     public ProductEntity() {
     }
@@ -61,18 +53,18 @@ public class ProductEntity extends AbstractNamedEntity {
         return category;
     }
 
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     @Override
     public String toString() {
-        return "ProductEntity{" +
-                "description='" + description + '\'' +
-                ", price=" + price +
-                ", amount=" + amount +
-                ", category=" + category +
-                ", purchases=" + purchases +
-                '}';
+        return super.toString() + " description=" + description + " price=" + price + " amount=" + amount + " categoryId=" + category.getId();
     }
 }

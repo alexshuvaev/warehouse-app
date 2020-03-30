@@ -2,8 +2,7 @@ package com.simbirsoft.internship.web.api;
 
 import com.simbirsoft.internship.service.ProductService;
 import com.simbirsoft.internship.dto.Invoice;
-import com.simbirsoft.internship.dto.product.Product;
-import com.simbirsoft.internship.dto.product.ProductWithId;
+import com.simbirsoft.internship.dto.product.ProductDescId;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,8 +31,8 @@ public class ProductRestController {
     @ApiOperation(value = "Find Product by id", notes = "Provide an id dto get single Product from DB")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
-    public ProductWithId get(@PathVariable int id) {
-        return (ProductWithId) productCreate(service.findById(id));
+    public ProductDescId get(@PathVariable int id) {
+        return productCreate(service.findById(id));
     }
 
     /**
@@ -45,7 +44,7 @@ public class ProductRestController {
     @ApiOperation(value = "Create list of Products", notes = "Add Products from Invoice")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    public List<Product> createList(@RequestBody Invoice invoice) {
+    public List<ProductDescId> createList(@RequestBody Invoice invoice) {
         return productsListCreate(service.createList(invoice.getProducts()));
     }
 }

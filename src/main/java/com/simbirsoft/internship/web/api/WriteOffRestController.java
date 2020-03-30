@@ -3,7 +3,7 @@ package com.simbirsoft.internship.web.api;
 import com.simbirsoft.internship.entity.WriteOffEntity;
 import com.simbirsoft.internship.service.WriteOffService;
 import com.simbirsoft.internship.dto.WriteOff;
-import com.simbirsoft.internship.dto.WriteOffToConfirm;
+import com.simbirsoft.internship.dto.ConfirmedWriteOff;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class WriteOffRestController {
     @ApiOperation(value = "Get all Write-off lists", notes = "Get all confirmed and not confirmed Write-off lists")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("")
-    public List<WriteOffToConfirm> getAll() {
+    public List<ConfirmedWriteOff> getAll() {
         List<WriteOffEntity> writeOffEntityList = service.findAll();
         return writeOffToConfirmListCreate(writeOffEntityList);
     }
@@ -46,7 +46,7 @@ public class WriteOffRestController {
     @ApiOperation(value = "Get single Write-off list", notes = "Provide an id dto get single Write-off list")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
-    public WriteOffToConfirm get(@PathVariable int id) {
+    public ConfirmedWriteOff get(@PathVariable int id) {
         WriteOffEntity writeOff = service.findById(id);
         return writeOffToConfirmCreate(writeOff);
     }
@@ -60,7 +60,7 @@ public class WriteOffRestController {
     @ApiOperation(value = "Create list of Products dto write-off", notes = "Input list of Products (id and amount), that must be write-off")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    public WriteOffToConfirm createList(@RequestBody WriteOff writeOff) {
+    public ConfirmedWriteOff createList(@RequestBody WriteOff writeOff) {
         WriteOffEntity writeOffEntity = service.createWriteOff(writeOff);
         return writeOffToConfirmCreate(writeOffEntity);
     }

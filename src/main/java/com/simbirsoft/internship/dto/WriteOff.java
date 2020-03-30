@@ -7,16 +7,21 @@ import java.util.Set;
 
 public class WriteOff {
     @JsonProperty("products")
-    private Set<Position> positionsForWriteoff = new HashSet<>();
+    private Set<Position> positions = new HashSet<>();
 
     public WriteOff() {
     }
 
-    public WriteOff(Set<Position> positionsForWriteoff) {
-        this.positionsForWriteoff = positionsForWriteoff;
+    public WriteOff(Set<Position> positions) {
+        this.positions = positions;
     }
 
-    public Set<Position> getPositionsForWriteoff() {
-        return positionsForWriteoff;
+    public Set<Position> getPositions() {
+        return positions;
+    }
+
+    @Override
+    public String toString() {
+        return "positions=" + positions;
     }
 }

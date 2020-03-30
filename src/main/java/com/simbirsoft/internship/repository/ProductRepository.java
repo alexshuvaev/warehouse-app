@@ -8,5 +8,11 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
+    /**
+     * Find Product in DB by name.
+     *
+     * @param name of Product.
+     * @return ProductEntity if exist. Null - if not.
+     */
     Optional<ProductEntity> findByName(String name);
 }

@@ -1,14 +1,15 @@
 package com.simbirsoft.internship.web.api;
 
-import com.simbirsoft.internship.service.PurchaseService;
+import com.simbirsoft.internship.dto.ConfirmedPurchase;
 import com.simbirsoft.internship.dto.Purchase;
-import com.simbirsoft.internship.dto.product.ProductWithId;
+import com.simbirsoft.internship.entity.PurchaseEntity;
+import com.simbirsoft.internship.service.PurchaseService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import static com.simbirsoft.internship.util.DTOsConverter.purchaseToConfirmCreate;
 
 @RestController
 @RequestMapping("/api/order")
@@ -31,7 +32,8 @@ public class PurchaseRestController {
             "Each position have dto contains id and quantity of Product. Purchase have dto contains Store id.")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    public List<ProductWithId> makeAPurchase(@RequestBody Purchase purchase) {
-        return service.makeAnPurchase(purchase);
+    public ConfirmedPurchase makeAPurchase(@RequestBody Purchase purchase) {
+        PurchaseEntity purchaseEntity = service.makeAnPurchase(purchase);
+        return purchaseToConfirmCreate(purchaseEntity);
     }
 }

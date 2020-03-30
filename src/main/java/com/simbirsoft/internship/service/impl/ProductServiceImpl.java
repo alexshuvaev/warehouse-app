@@ -1,9 +1,10 @@
-package com.simbirsoft.internship.service;
+package com.simbirsoft.internship.service.impl;
 
+import com.simbirsoft.internship.dto.product.ProductDesc;
 import com.simbirsoft.internship.entity.ProductEntity;
 import com.simbirsoft.internship.repository.CategoryRepository;
 import com.simbirsoft.internship.repository.ProductRepository;
-import com.simbirsoft.internship.dto.product.Product;
+import com.simbirsoft.internship.service.ProductService;
 import com.simbirsoft.internship.util.exception.InvalidPropertyException;
 import com.simbirsoft.internship.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,29 +50,29 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public List<ProductEntity> createList(List<Product> productList) {
+    public List<ProductEntity> createList(List<ProductDesc> productDescList) {
         return productRepository.saveAll(
-                productList.stream()
+                productDescList.stream()
                         .map(this::createUpdateProductEntity).collect(Collectors.toList()));
     }
 
-    private ProductEntity createUpdateProductEntity(Product productEntity) {
-        productValidation(productEntity);
+    private ProductEntity createUpdateProductEntity(ProductDesc productDesc) {
+        productValidation(productDesc);
 
-        int categoryId = productEntity.getCategoryId();
-        String name = productEntity.getName();
+        int categoryId = productDesc.getCategoryId();
+        String name = productDesc.getName();
 
-        Optional<ProductEntity> product = productRepository.findByName(name);
-        if (product.isPresent()) {
-            ProductEntity p = product.get();
-            p.setAmount(p.getAmount() + productEntity.getAmount());
+        Optional<ProductEntity> productEntity = productRepository.findByName(name);
+        if (productEntity.isPresent()) {
+            ProductEntity p = productEntity.get();
+            p.setAmount(p.getAmount() + productDesc.getAmount());
             return p;
         } else {
             return new ProductEntity(null,
                     name,
-                    productEntity.getDescription(),
-                    productEntity.getPrice(),
-                    productEntity.getAmount(),
+                    productDesc.getDescription(),
+                    productDesc.getPrice(),
+                    productDesc.getAmount(),
                     categoryRepository.findById(categoryId).orElseThrow(
                             () -> new NotFoundException("Not found Category with id=" + categoryId)));
         }
@@ -81,12 +82,12 @@ public class ProductServiceImpl implements ProductService {
      * Product validation
      **/
 
-    private void productValidation(Product product) {
-        nameValidation(product.getName());
-        priceValidation(product.getPrice());
-        amountValidation(product.getAmount());
-        descriptionValidation(product.getDescription());
-        categoryValidation(product.getCategoryId());
+    private void productValidation(ProductDesc productDesc) {
+        nameValidation(productDesc.getName());
+        priceValidation(productDesc.getPrice());
+        amountValidation(productDesc.getAmount());
+        descriptionValidation(productDesc.getDescription());
+        categoryValidation(productDesc.getCategoryId());
     }
 
     private void nameValidation(String name) {

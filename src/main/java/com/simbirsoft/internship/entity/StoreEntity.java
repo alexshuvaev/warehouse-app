@@ -1,6 +1,9 @@
 package com.simbirsoft.internship.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +31,21 @@ public class StoreEntity extends AbstractNamedEntity {
 
     public Set<PurchaseEntity> getPurchases() {
         return purchases;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " address=" + address + " purchases.size=" + purchases.size();
     }
 }
 

@@ -3,8 +3,8 @@ package com.simbirsoft.internship.web.api;
 import com.simbirsoft.internship.entity.CategoryEntity;
 import com.simbirsoft.internship.service.CategoryService;
 import com.simbirsoft.internship.dto.category.Category;
-import com.simbirsoft.internship.dto.category.CategoryWithId;
-import com.simbirsoft.internship.dto.category.CategoryWithProducts;
+import com.simbirsoft.internship.dto.category.CategoryId;
+import com.simbirsoft.internship.dto.category.CategoryIdProducts;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class CategoryRestController {
     @ApiOperation(value = "Find all Categories", notes = "Find all Categories from DB. Only Categories ids and names, without displaying Products")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/all")
-    public List<CategoryWithId> getAll() {
+    public List<CategoryId> getAll() {
         List<CategoryEntity> categoryEntityList =  service.findAll();
         return categoryWithIdListCreate(categoryEntityList);
     }
@@ -46,7 +46,7 @@ public class CategoryRestController {
     @ApiOperation(value = "Find Category by id", notes = "Provide an id dto get single Category from DB")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
-    public CategoryWithProducts get(@PathVariable int id) {
+    public CategoryIdProducts get(@PathVariable int id) {
         CategoryEntity category = service.findById(id);
         return categoryWithProductsCreate(category);
     }
@@ -60,7 +60,7 @@ public class CategoryRestController {
     @ApiOperation(value = "Create single Category", notes = "Provide new name for Category. Only single Category can be create in request.")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    public CategoryWithId create(@RequestBody Category category) {
+    public CategoryId create(@RequestBody Category category) {
         CategoryEntity categoryEntity = service.create(new CategoryEntity(null, category.getName()));
         return categoryWithIdCreate(categoryEntity);
     }
@@ -75,7 +75,7 @@ public class CategoryRestController {
     @ApiOperation(value = "Update name of single Category", notes = "Provide new name for Category. Only single Category can be updated in request.")
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
-    public CategoryWithId update(@RequestBody Category category, @PathVariable int id) {
+    public CategoryId update(@RequestBody Category category, @PathVariable int id) {
         CategoryEntity categoryEntity = service.update(new CategoryEntity(id, category.getName()));
         return categoryWithProductsCreate(categoryEntity);
     }

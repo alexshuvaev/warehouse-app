@@ -24,4 +24,9 @@ public class Position {
     public int getAmountOfProduct() {
         return amountOfProduct;
     }
+
+    @Override
+    public String toString() {
+        return "idOfProduct=" + idOfProduct + " amountOfProduct=" + amountOfProduct;
+    }
 }

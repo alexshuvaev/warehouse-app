@@ -3,13 +3,10 @@ package com.simbirsoft.internship.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "writeoff_product")
-public class WriteOffProductEntity extends AbstractNamedEntity {
+@Table(name = "purchase_product")
+public class PurchaseProductEntity extends AbstractNamedEntity {
     @Column(name = "description")
     private String description;
-
-    @Column(name = "product_id")
-    private int productId;
 
     @Column(name = "price")
     private double price;
@@ -21,32 +18,27 @@ public class WriteOffProductEntity extends AbstractNamedEntity {
     private int categoryId;
 
     @ManyToOne
-    @JoinColumn(name = "writeoff_id")
-    private WriteOffEntity writeOff;
+    @JoinColumn(name = "purchase_id")
+    private PurchaseEntity purchase;
 
-    public WriteOffProductEntity() {
+    public PurchaseProductEntity() {
     }
 
-    public WriteOffProductEntity(Integer id, String name) {
+    public PurchaseProductEntity(Integer id, String name) {
         super(id, name);
     }
 
-    public WriteOffProductEntity(Integer id, String name, String description, int productId, int categoryId, double price, int amount, WriteOffEntity writeOff) {
+    public PurchaseProductEntity(Integer id, String name, String description, double price, int amount, int categoryId, PurchaseEntity purchaseEntity) {
         this(id, name);
         this.description = description;
-        this.productId = productId;
-        this.categoryId = categoryId;
         this.price = price;
         this.amount = amount;
-        this.writeOff = writeOff;
+        this.categoryId = categoryId;
+        this.purchase = purchaseEntity;
     }
 
     public String getDescription() {
         return description;
-    }
-
-    public int getProductId() {
-        return productId;
     }
 
     public double getPrice() {
@@ -61,8 +53,8 @@ public class WriteOffProductEntity extends AbstractNamedEntity {
         return categoryId;
     }
 
-    public WriteOffEntity getWriteOff() {
-        return writeOff;
+    public PurchaseEntity getPurchase() {
+        return purchase;
     }
 
     @Override
@@ -77,6 +69,6 @@ public class WriteOffProductEntity extends AbstractNamedEntity {
 
     @Override
     public String toString() {
-        return super.toString() + " description=" + description + " productId=" + productId + " price=" + price + " amount=" + amount + " categoryId=" + categoryId + " writeOffId=" + writeOff.getId();
+        return super.toString() + " price=" + price + " amount=" + amount + " categoryId=" + categoryId + " purchaseId=" + purchase.getId();
     }
 }

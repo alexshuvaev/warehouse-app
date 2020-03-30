@@ -20,15 +20,21 @@ public class CategoryEntity extends AbstractNamedEntity{
     }
 
     public Set<ProductEntity> getProducts() {
-                return products;
+        return products;
     }
 
-    public void setProducts(Set<ProductEntity> productEntitySet) {
-        this.products = productEntitySet;
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     @Override
     public String toString() {
-        return getId() + " " + getName();
+        return super.toString() + " Products=" + products;
     }
 }

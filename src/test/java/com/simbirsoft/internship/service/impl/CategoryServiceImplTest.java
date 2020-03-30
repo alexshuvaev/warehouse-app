@@ -1,7 +1,8 @@
-package com.simbirsoft.internship.service;
+package com.simbirsoft.internship.service.impl;
 
 import com.simbirsoft.internship.entity.CategoryEntity;
 import com.simbirsoft.internship.repository.CategoryRepository;
+import com.simbirsoft.internship.service.CategoryService;
 import com.simbirsoft.internship.util.exception.InvalidPropertyException;
 import com.simbirsoft.internship.util.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static com.simbirsoft.internship.TestData.*;
+import static com.simbirsoft.internship.testdata.CategoryTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

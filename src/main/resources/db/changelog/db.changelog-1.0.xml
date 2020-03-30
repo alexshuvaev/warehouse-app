@@ -103,15 +103,12 @@
             <column name="date_time"/>
         </createIndex>
 
-        <!-- WriteoffProduct entity -->
+        <!-- Writeoff entity -->
         <createTable tableName="writeoff_product">
             <column name="id" type="integer" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="product_id" type="int">
-                <constraints nullable="false"/>
-            </column>
-            <column name="category_id" type="int">
                 <constraints nullable="false"/>
             </column>
             <column name="name" type="varchar(255)">
@@ -126,16 +123,36 @@
             <column name="amount" type="int">
                 <constraints nullable="false"/>
             </column>
+            <column name="category_id" type="int">
+                <constraints nullable="false"/>
+            </column>
             <column name="writeoff_id" type="int">
                 <constraints nullable="false" foreignKeyName="fk_writeoff_id" references="writeoff(id)"/>
             </column>
         </createTable>
 
-        <!--table for ManyToMany relation between Product and Purchase entities -->
+        <!-- Purchase entity -->
         <createTable tableName="purchase_product">
-            <column name="purchase_id" type="int">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="product_id" type="int">
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="decimal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="purchase_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_purchase_id" references="purchase(id)"/>
             </column>
         </createTable>
 

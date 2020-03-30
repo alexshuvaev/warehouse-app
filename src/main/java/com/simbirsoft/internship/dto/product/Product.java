@@ -6,9 +6,6 @@ public class Product {
     @JsonProperty("product_name")
     private String name;
 
-    @JsonProperty("product_description")
-    private String description;
-
     @JsonProperty("price")
     private double price;
 
@@ -28,22 +25,8 @@ public class Product {
         this.categoryId = categoryId;
     }
 
-    public Product(String name, String description, double price, Integer amount, Integer categoryId) {
-        this(name, price, amount, categoryId);
-        this.description = description;
-
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public double getPrice() {
@@ -54,11 +37,12 @@ public class Product {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
-
     public Integer getCategoryId() {
         return categoryId;
+    }
+
+    @Override
+    public String toString() {
+        return " name=" + name + " price=" + price + " amount=" + amount + " categoryId=" + categoryId;
     }
 }

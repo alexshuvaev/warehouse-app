@@ -1,9 +1,7 @@
 package com.simbirsoft.internship.service;
 
 import com.simbirsoft.internship.dto.Purchase;
-import com.simbirsoft.internship.dto.product.ProductWithId;
-
-import java.util.List;
+import com.simbirsoft.internship.entity.PurchaseEntity;
 
 public interface PurchaseService {
    /**
@@ -16,5 +14,5 @@ public interface PurchaseService {
     * If in Purchase amount of Product greater than available, will be LowerThanAvaibleException.
     * If at least one Product can't be found by id, will be NotFoundException.
     */
-   List<ProductWithId> makeAnPurchase(Purchase purchase);
+   PurchaseEntity makeAnPurchase(Purchase purchase);
 }

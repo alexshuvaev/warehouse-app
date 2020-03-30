@@ -25,7 +25,17 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
     public String toString() {
-        return '(' + name + ')';
+        return super.toString() + " name=" + name;
     }
 }
