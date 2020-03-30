@@ -44,6 +44,7 @@ public class ReportServiceImpl implements ReportService {
         // ** Prepare data. ** //
 
         LocalDateTime[] between = convertToLocalDateTime(startDate, endDate);
+
         // Get all Purchase entities.
         List<PurchaseEntity> purchaseEntities = purchaseRepository.getAllBetween(between[0], between[1]);
         isDataExist(purchaseEntities);
@@ -211,11 +212,14 @@ public class ReportServiceImpl implements ReportService {
         } else if (startDate == null) {
             between[0] = LocalDateTime.of(LocalDate.of(2020,1,1), LocalTime.of(0, 0, 0));
             between[1] = LocalDateTime.of(endDate, LocalTime.of(23, 59, 59));
-        } else {
-            if(startDate.isAfter(endDate)) throw new InvalidPropertyException("startDate can't be after endDate.");
+        } else if (endDate == null) {
             between[0] = LocalDateTime.of(startDate, LocalTime.of(0, 0, 0));
             between[1] = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59));
+        } else {
+            between[0] = LocalDateTime.of(startDate, LocalTime.of(0, 0, 0));
+            between[1] = LocalDateTime.of(endDate, LocalTime.of(23, 59, 59));
         }
+        if(between[0].isAfter(between[1])) throw new InvalidPropertyException("startDate can't be after endDate.");
         return between;
     }
 }

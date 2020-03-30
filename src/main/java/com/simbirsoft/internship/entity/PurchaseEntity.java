@@ -8,7 +8,7 @@ import java.util.Set;
 
 @NamedQuery(name = PurchaseEntity.GET_ALL_BETWEEN,
         query = "SELECT p FROM PurchaseEntity p " +
-                "WHERE p.dateTime >= :startDate AND p.dateTime < :endDate " +
+                "WHERE p.dateTime >= :startDate AND p.dateTime <= :endDate " +
                 "ORDER BY p.dateTime DESC")
 @NamedQuery(name = PurchaseEntity.GET_SOLD,
         query = "SELECT prod.name as name, SUM(prod.amount) as amount, SUM(prod.price) as price, prod.categoryId as cat " +
