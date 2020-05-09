@@ -2,6 +2,8 @@
 
 "Storage" application on Spring Boot, Spring DATA JPA, Hibernate, Swagger REST
 
+*Actual version in "develop" branch.*
+
 ## Requirements
 
 1. Java - 1.8.x
